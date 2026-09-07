@@ -155,16 +155,19 @@ export const ContentSidebar: React.FC<Props> = ({
   };
 
   return (
-    <aside className="hidden lg:flex w-[296px] border-r border-slate-200/80 dark:border-slate-800/80 bg-slate-50/70 dark:bg-slate-900/70 flex-col h-[calc(100vh-4rem)] shrink-0 select-none">
+    <aside className="hidden lg:flex w-[340px] xl:w-[360px] border-r border-slate-200/80 dark:border-slate-800/80 bg-slate-50/70 dark:bg-slate-900/70 flex-col h-[calc(100vh-4rem)] shrink-0 select-none">
       {/* Sidebar Section Title */}
-      <div className="px-5 py-4 border-b border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between">
-        <span className="text-[12px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-          QUESTIONS & CONTENT ({questions.length})
+      <div className="px-5 py-3.5 border-b border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between">
+        <span className="text-[12px] font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-2">
+          <span>Questions & Content</span>
+          <span className="px-2 py-0.5 rounded-full bg-slate-200 dark:bg-slate-800 text-[11px] font-mono text-slate-600 dark:text-slate-300">
+            {questions.length}
+          </span>
         </span>
       </div>
 
       {/* Questions Sequenced List */}
-      <div className="flex-1 overflow-y-auto p-3 space-y-2">
+      <div className="flex-1 overflow-y-auto p-3 space-y-2.5">
         {questions.length === 0 ? (
           <div className="text-center py-12 px-4 text-slate-400 dark:text-slate-600 text-xs font-medium space-y-2">
             <p>No questions yet.</p>
@@ -187,50 +190,55 @@ export const ContentSidebar: React.FC<Props> = ({
                 onDrop={(e) => handleDrop(e, index)}
                 onDragEnd={handleDragEnd}
                 onClick={() => onSelectQuestion(q.id)}
-                className={`group relative flex items-start gap-2.5 px-3 py-2.5 rounded-xl text-left transition-all border min-h-[64px] ${
+                className={`group relative flex items-start gap-3 p-3 rounded-xl text-left transition-all border min-h-[72px] ${
                   isDragging
                     ? 'dragging-item opacity-40 bg-slate-200 border-dashed border-indigo-400'
                     : isDragOver
                     ? 'border-t-2 border-t-indigo-600 bg-indigo-50/40 dark:bg-indigo-950/20'
                     : isSelected
-                    ? 'bg-white dark:bg-slate-800/90 text-slate-900 dark:text-slate-100 font-bold border-indigo-500 shadow-sm ring-1 ring-indigo-500/20'
-                    : 'bg-white/60 dark:bg-slate-900/60 border-slate-200/70 dark:border-slate-800/70 hover:bg-white dark:hover:bg-slate-800/70 hover:border-slate-300 text-slate-700 dark:text-slate-300'
+                    ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-bold border-indigo-500 shadow-md ring-1 ring-indigo-500/20'
+                    : 'bg-white dark:bg-slate-900/80 border-slate-200/80 dark:border-slate-800/80 hover:bg-white dark:hover:bg-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700 text-slate-700 dark:text-slate-300 shadow-2xs'
                 } cursor-pointer`}
               >
-                {/* Drag Handle */}
-                <div
-                  className="cursor-grab active:cursor-grabbing text-slate-300 group-hover:text-slate-500 text-[16px] leading-none font-mono px-0.5 mt-1 shrink-0"
-                  title="Drag to reorder"
-                >
-                  ⋮⋮
+                {/* Drag Handle + Step Index + Type Icon Badge */}
+                <div className="flex items-center gap-2 shrink-0 pt-0.5">
+                  <div
+                    className="cursor-grab active:cursor-grabbing text-slate-300 hover:text-slate-600 dark:hover:text-slate-400 text-xs font-mono select-none"
+                    title="Drag to reorder"
+                  >
+                    ⋮⋮
+                  </div>
+                  <span className="text-[11px] font-extrabold font-mono text-slate-400 group-hover:text-indigo-600">
+                    {stepNum}
+                  </span>
+                  <span
+                    className={`w-7 h-7 rounded-lg ${meta.bgClass} ${meta.textClass} border ${meta.borderClass} flex items-center justify-center shadow-2xs`}
+                    title={meta.label}
+                  >
+                    {meta.icon}
+                  </span>
                 </div>
 
-                {/* Step Number */}
-                <span className="text-[11px] font-extrabold text-slate-400 group-hover:text-indigo-600 mt-1 shrink-0 w-4">
-                  {stepNum}
-                </span>
-
-                {/* Distinct Colored Type Icon Badge */}
-                <span
-                  className={`w-6 h-6 rounded-lg ${meta.bgClass} ${meta.textClass} border ${meta.borderClass} flex items-center justify-center shrink-0 mt-0.5 shadow-2xs`}
-                  title={meta.label}
-                >
-                  {meta.icon}
-                </span>
-
                 {/* Question Info & Subtitle */}
-                <div className="flex-1 min-w-0">
-                  <div className="text-xs font-bold truncate leading-tight" title={q.title || 'Untitled Question'}>
+                <div className="flex-1 min-w-0 pr-1">
+                  <div
+                    className="text-[13px] font-bold text-slate-800 dark:text-slate-100 leading-snug line-clamp-2 break-words"
+                    title={q.title || 'Untitled Question'}
+                  >
                     {q.title || 'Untitled Question'}
                   </div>
-                  <div className="text-[11px] text-slate-400 dark:text-slate-500 font-medium leading-tight mt-0.5 flex items-center gap-1.5">
+                  <div className="text-[11px] text-slate-400 dark:text-slate-400 font-medium leading-tight mt-1 flex items-center gap-1.5 flex-wrap">
                     <span>{meta.label}</span>
-                    {q.required && <span className="text-rose-500 font-bold text-[10px]">• req</span>}
+                    {q.required && (
+                      <span className="inline-flex items-center gap-1 text-rose-500 font-bold text-[10px] bg-rose-50 dark:bg-rose-950/40 px-1.5 py-0.2 rounded">
+                        • req
+                      </span>
+                    )}
                   </div>
                 </div>
 
                 {/* Actions overlay on hover */}
-                <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 dark:bg-slate-800/95 rounded-lg px-1 shadow-sm mt-0.5 border border-slate-200 dark:border-slate-700">
+                <div className="absolute top-2 right-2 flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 dark:bg-slate-800/95 rounded-lg p-0.5 shadow-md border border-slate-200 dark:border-slate-700 z-10">
                   <button
                     type="button"
                     disabled={index === 0}
