@@ -39,18 +39,18 @@ export const BuilderToolbar: React.FC<Props> = ({
           <span>Add content</span>
         </button>
 
-        {/* First-class Design Button with Colored Theme Swatch Symbol */}
+        {/* First-class Design Button with Sleek Black Logo Symbol */}
         <button
           type="button"
           onClick={() => onToggleDrawer('design')}
-          className={`min-h-11 inline-flex items-center gap-2.5 px-4 rounded-xl font-bold text-sm transition-all cursor-pointer border focus:outline-none focus:ring-2 focus:ring-purple-500/40 whitespace-nowrap ${
+          className={`min-h-11 inline-flex items-center gap-2.5 px-4 rounded-xl font-bold text-sm transition-all cursor-pointer border focus:outline-none focus:ring-2 focus:ring-slate-900/40 whitespace-nowrap ${
             isDesignActive
-              ? 'bg-purple-50 dark:bg-purple-950/60 border-purple-500 text-purple-600 dark:text-purple-300 ring-2 ring-purple-500/30 shadow-xs'
-              : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:bg-purple-50/50 dark:hover:bg-purple-950/30 hover:border-purple-300 dark:hover:border-purple-800'
+              ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
+              : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
           }`}
           title="Customize Theme & Design"
         >
-          <span className="w-6 h-6 rounded-lg bg-linear-to-br from-pink-500 via-purple-500 to-indigo-500 text-white flex items-center justify-center shadow-xs">
+          <span className={`w-6 h-6 rounded-lg ${isDesignActive ? 'bg-white/20 text-white' : 'bg-black dark:bg-white text-white dark:text-black'} flex items-center justify-center shadow-xs`}>
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M7 21a4 4 0 01-4-4 5 5 0 015-5h1a1 1 0 001-1V8a5 5 0 0110 0v1a1 1 0 001 1h1a5 5 0 015 5 4 4 0 01-4 4H7z" />
             </svg>
