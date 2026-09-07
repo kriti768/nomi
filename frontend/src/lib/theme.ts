@@ -169,6 +169,51 @@ export const THEME_PRESETS: ThemePreset[] = [
       textAlignment: 'center',
     },
   },
+  {
+    id: 'synthwave',
+    name: 'Arcade Synthwave',
+    description: 'Vibrant neon fuchsia glowing on deep retro 80s arcade midnight',
+    theme: {
+      preset: 'synthwave',
+      primaryColor: '#EC4899',
+      backgroundColor: '#130B24',
+      textColor: '#FDF4FF',
+      answerColor: '#24143D',
+      fontFamily: 'Inter',
+      cornerRadius: 16,
+      textAlignment: 'left',
+    },
+  },
+  {
+    id: 'citrus_fizz',
+    name: 'Citrus Fizz',
+    description: 'Punchy electric lime and sunburst yellow with high energy vibes',
+    theme: {
+      preset: 'citrus_fizz',
+      primaryColor: '#EAB308',
+      backgroundColor: '#FEFCE8',
+      textColor: '#422006',
+      answerColor: '#FFFFFF',
+      fontFamily: 'Plus Jakarta Sans',
+      cornerRadius: 20,
+      textAlignment: 'left',
+    },
+  },
+  {
+    id: 'aqua_breeze',
+    name: 'Aqua Breeze',
+    description: 'Crisp tropical turquoise waves on refreshing crystalline mint',
+    theme: {
+      preset: 'aqua_breeze',
+      primaryColor: '#06B6D4',
+      backgroundColor: '#F0FDFA',
+      textColor: '#134E4A',
+      answerColor: '#FFFFFF',
+      fontFamily: 'Plus Jakarta Sans',
+      cornerRadius: 14,
+      textAlignment: 'left',
+    },
+  },
 ];
 
 export const FONT_OPTIONS = [
