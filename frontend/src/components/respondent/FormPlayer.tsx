@@ -95,14 +95,14 @@ export const FormPlayer: React.FC<Props> = ({ form, isPreviewMode = false, previ
     };
   }, [answers, currentIndex, draftKey, isPreviewMode, isSubmitted, settings.autoSaveDraft]);
 
-  const handleAnswerChange = (val: any) => {
+  const handleAnswerChange = useCallback((val: unknown) => {
     if (!currentQuestion) return;
     setErrorMsg(null);
     setAnswers((prev) => ({
       ...prev,
       [currentQuestion.id]: val,
     }));
-  };
+  }, [currentQuestion]);
 
   const validateCurrent = useCallback((): boolean => {
     if (!currentQuestion) return true;

@@ -78,12 +78,51 @@ export default function DashboardPage() {
     }
   };
 
-  const handleAction = async (form: FormSchema, action: 'publish' | 'delete' | 'copy' | 'duplicate' | 'rename') => {
+  const handleAction = async (form: FormSchema, action: 'publish' | 'delete' | 'copy' | 'duplicate' | 'rename' | 'export') => {
     setMenuId(null);
 
     if (action === 'rename') {
       setRenameForm(form);
       setRenameTitle(form.title);
+      return;
+    }
+
+    if (action === 'export') {
+      try {
+        const fullForm = await api.getForm(form.id);
+        const responses = await api.getResponses(form.id);
+        if (!responses || responses.length === 0) {
+          showToast('No responses submitted to export yet', 'warning');
+          return;
+        }
+        const questions = fullForm.questions || [];
+        const headers = ['Response ID', 'Submitted At', ...questions.map((q) => `"${(q.title || 'Untitled').replace(/"/g, '""')}"`)];
+        const rows = responses.map((r) => {
+          const answersMap = (r.answers || []).reduce<Record<string, any>>((acc, a) => {
+            acc[a.question_id] = a.value;
+            return acc;
+          }, {});
+          const dateStr = new Date(r.submitted_at).toISOString();
+          const cols = questions.map((q) => {
+            const val = answersMap[q.id];
+            if (val === undefined || val === null) return '""';
+            const strVal = Array.isArray(val) ? val.join('; ') : String(val);
+            return `"${strVal.replace(/"/g, '""')}"`;
+          });
+          return [r.id || '', `"${dateStr}"`, ...cols].join(',');
+        });
+        const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows].join('\n');
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', `${form.title.toLowerCase().replace(/[^a-z0-9]/g, '_')}_responses.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showToast('CSV export downloaded');
+      } catch {
+        showToast('Failed to export responses', 'warning');
+      }
       return;
     }
 
@@ -301,6 +340,9 @@ export default function DashboardPage() {
                           </button>
                           <button type="button" onClick={() => handleAction(form, 'duplicate')}>
                             Duplicate form
+                          </button>
+                          <button type="button" onClick={() => handleAction(form, 'export')}>
+                            Export to CSV
                           </button>
                           <button type="button" onClick={() => handleAction(form, 'copy')}>
                             Copy public link
