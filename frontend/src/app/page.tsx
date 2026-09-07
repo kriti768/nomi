@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import Link from 'next/link';
 import { QuestionRenderer } from '@/components/fields/QuestionRenderer';
 import { Question, FormTheme } from '@/types/form';
 import { THEME_PRESETS } from '@/lib/theme';
 import { NomiLogo } from '@/components/brand/NomiLogo';
+import { api } from '@/lib/api';
 
 const DEMO_FORM_ID = 'eba8b334-7d15-42c0-b123-7f30686ff31b';
 
@@ -24,56 +25,56 @@ const previewQuestions: Question[] = [
     id: 'nomi-preview-idea',
     form_id: 'nomi-preview',
     type: 'multiple_choice',
-    title: 'What are you bringing to life?',
+    title: '✨ What are you bringing to life?',
     description: 'Choose the idea closest to your heart.',
     required: true,
     position: 0,
     choices: [
-      { id: 'startup', label: 'A new venture' },
-      { id: 'portfolio', label: 'A creative portfolio' },
-      { id: 'community', label: 'A growing community' },
+      { id: 'startup', label: '🚀 A new venture' },
+      { id: 'portfolio', label: '🎨 A creative portfolio' },
+      { id: 'community', label: '⚡ A growing community' },
     ],
   },
   {
     id: 'nomi-preview-stage',
     form_id: 'nomi-preview',
     type: 'multiple_choice',
-    title: 'Where are you in the journey?',
+    title: '🎯 Where are you in the journey?',
     description: 'A little context helps us meet you there.',
     required: true,
     position: 1,
     choices: [
-      { id: 'curious', label: 'Still exploring' },
-      { id: 'building', label: 'Already building' },
-      { id: 'growing', label: 'Ready to grow' },
+      { id: 'curious', label: '🌱 Still exploring' },
+      { id: 'building', label: '🛠️ Already building' },
+      { id: 'growing', label: '📈 Ready to scale' },
     ],
   },
   {
     id: 'nomi-preview-focus',
     form_id: 'nomi-preview',
     type: 'multiple_choice',
-    title: 'What matters most right now?',
+    title: '💡 What matters most right now?',
     description: 'There is no wrong answer.',
     required: true,
     position: 2,
     choices: [
-      { id: 'clarity', label: 'Finding clarity' },
-      { id: 'momentum', label: 'Building momentum' },
-      { id: 'connection', label: 'Connecting people' },
+      { id: 'clarity', label: '✨ Finding clarity' },
+      { id: 'momentum', label: '⚡ High momentum' },
+      { id: 'connection', label: '🤝 Deep connection' },
     ],
   },
   {
     id: 'nomi-preview-feeling',
     form_id: 'nomi-preview',
     type: 'multiple_choice',
-    title: 'How do you want it to feel?',
+    title: '🔮 How do you want it to feel?',
     description: 'Pick the feeling you want to leave behind.',
     required: true,
     position: 3,
     choices: [
-      { id: 'calm', label: 'Calm and considered' },
-      { id: 'bold', label: 'Bold and memorable' },
-      { id: 'warm', label: 'Warm and human' },
+      { id: 'calm', label: '🕊️ Calm and considered' },
+      { id: 'bold', label: '🔥 Bold and memorable' },
+      { id: 'warm', label: '💖 Warm and human' },
     ],
   },
 ];
@@ -82,6 +83,7 @@ export default function LandingPage() {
   const [previewStep, setPreviewStep] = useState(0);
   const [previewAnswers, setPreviewAnswers] = useState<Record<string, unknown>>({});
   const [activeMilestone, setActiveMilestone] = useState(0);
+  const [creatingThemeId, setCreatingThemeId] = useState<string | null>(null);
 
   const landingRef = useRef<HTMLElement>(null);
   const navRef = useRef<HTMLElement>(null);
@@ -91,12 +93,66 @@ export default function LandingPage() {
   const previewQuestion = previewQuestions[previewStep];
   const isLastPreviewQuestion = previewStep === previewQuestions.length - 1;
 
-  const advancePreview = () => {
-    setPreviewStep((step) => (isLastPreviewQuestion ? 0 : step + 1));
-  };
+  const advancePreview = useCallback(() => {
+    setPreviewStep((step) => (step >= previewQuestions.length - 1 ? 0 : step + 1));
+  }, []);
 
   const openWorkspace = () => {
     window.location.assign('/dashboard');
+  };
+
+  // Keyboard shortcut handler for Hero Preview (Enter & shortcuts A, B, C, 1, 2, 3)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't capture when typing in an input
+      const target = e.target as HTMLElement;
+      if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA')) {
+        return;
+      }
+
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        advancePreview();
+        return;
+      }
+
+      const q = previewQuestions[previewStep];
+      if (q && q.choices) {
+        const keyUpper = e.key.toUpperCase();
+        let choiceIndex = -1;
+
+        if (keyUpper === 'A' || e.key === '1') choiceIndex = 0;
+        else if (keyUpper === 'B' || e.key === '2') choiceIndex = 1;
+        else if (keyUpper === 'C' || e.key === '3') choiceIndex = 2;
+
+        if (choiceIndex >= 0 && choiceIndex < q.choices.length) {
+          e.preventDefault();
+          const chosen = q.choices[choiceIndex].label;
+          setPreviewAnswers((prev) => ({ ...prev, [q.id]: chosen }));
+          setTimeout(() => {
+            advancePreview();
+          }, 240);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [previewStep, advancePreview]);
+
+  // Click on a theme card to create a new form with that theme
+  const handleSelectTheme = async (preset: typeof THEME_PRESETS[0]) => {
+    try {
+      setCreatingThemeId(preset.id);
+      const newForm = await api.createForm({ title: `${preset.name} Form` });
+      if (preset.theme) {
+        await api.updateForm(newForm.id, { theme: preset.theme });
+      }
+      window.location.assign(`/builder/${newForm.id}`);
+    } catch (err) {
+      console.error('Failed to create themed form', err);
+      window.location.assign('/dashboard');
+    }
   };
 
   useEffect(() => {
@@ -112,7 +168,7 @@ export default function LandingPage() {
           entry.target.classList.toggle('is-visible', entry.isIntersecting);
         });
       },
-      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+      { threshold: 0.1, rootMargin: '0px 0px -6% 0px' }
     );
     sections.forEach((section) => observer.observe(section));
 
@@ -127,7 +183,7 @@ export default function LandingPage() {
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.6 }
     );
     milestoneElements.forEach((el) => milestoneObserver.observe(el));
 
@@ -144,21 +200,21 @@ export default function LandingPage() {
       }
 
       // 2. Settle-in Navbar styling
-      navRef.current?.classList.toggle('is-scrolled', scrollY > 24);
+      navRef.current?.classList.toggle('is-scrolled', scrollY > 20);
 
       // 3. Parallax transforms on hero elements
       const hero = heroRef.current;
       if (hero) {
         const heroProgress = Math.min(1, Math.max(0, scrollY / Math.max(hero.offsetHeight, 1)));
-        hero.style.setProperty('--nomi-hero-y', `${heroProgress * -32}px`);
-        hero.style.setProperty('--nomi-hero-scale', `${1 - heroProgress * 0.015}`);
-        hero.style.setProperty('--nomi-hero-opacity', `${1 - heroProgress * 0.18}`);
-        hero.style.setProperty('--nomi-copy-y', `${heroProgress * -20}px`);
-        hero.style.setProperty('--nomi-preview-y', `${heroProgress * -38}px`);
+        hero.style.setProperty('--nomi-hero-y', `${heroProgress * -24}px`);
+        hero.style.setProperty('--nomi-hero-scale', `${1 - heroProgress * 0.012}`);
+        hero.style.setProperty('--nomi-hero-opacity', `${1 - heroProgress * 0.16}`);
+        hero.style.setProperty('--nomi-copy-y', `${heroProgress * -16}px`);
+        hero.style.setProperty('--nomi-preview-y', `${heroProgress * -28}px`);
       }
 
-      // 4. Subtle background grid shift
-      landing.style.setProperty('--nomi-grid-shift', `${Math.min(scrollY * 0.03, 16)}px`);
+      // 4. Background grid shift
+      landing.style.setProperty('--nomi-grid-shift', `${Math.min(scrollY * 0.025, 14)}px`);
     };
 
     const onScroll = () => {
@@ -253,9 +309,11 @@ export default function LandingPage() {
               <div className="nomi-preview-topbar">
                 <span className="nomi-mini-logo">
                   <NomiLogo size="sm" />
-                  <span>Nomi Preview</span>
+                  <span>Interactive Stage</span>
                 </span>
-                <span>Interactive Stage</span>
+                <span className="text-xs font-bold text-pink-600 dark:text-pink-400 bg-pink-50 dark:bg-pink-950/50 px-2 py-0.5 rounded-full">
+                  Try typing or click
+                </span>
               </div>
 
               <div className="nomi-preview-progress">
@@ -270,15 +328,16 @@ export default function LandingPage() {
                 <QuestionRenderer
                   question={previewQuestion}
                   value={previewAnswers[previewQuestion.id]}
-                  onChange={(value) =>
-                    setPreviewAnswers((answers) => ({ ...answers, [previewQuestion.id]: value }))
-                  }
+                  onChange={(value) => {
+                    setPreviewAnswers((answers) => ({ ...answers, [previewQuestion.id]: value }));
+                    setTimeout(advancePreview, 220);
+                  }}
                   theme={previewTheme}
                   onEnterKey={advancePreview}
                 />
 
                 <div className="nomi-preview-footer">
-                  <span>Press <kbd>Enter ↵</kbd> to continue</span>
+                  <span>Press <kbd>Enter ↵</kbd> or keys <kbd>A</kbd>–<kbd>C</kbd></span>
                   <button type="button" onClick={advancePreview}>
                     {isLastPreviewQuestion ? 'Start again' : 'Next'} <span aria-hidden="true">→</span>
                   </button>
@@ -286,13 +345,13 @@ export default function LandingPage() {
               </div>
             </div>
             <p className="nomi-preview-caption">
-              <span /> One focused question at a time
+              <span /> One focused thought at a time
             </p>
           </div>
         </div>
       </section>
 
-      {/* Value Strip (01 BUILD, 02 SHARE, 03 UNDERSTAND) */}
+      {/* Value Strip (01 BUILD, 02 SHARE, 03 UNDERSTAND) — Tight & Clean */}
       <section className="nomi-value-strip nomi-motion-section" aria-label="Nomi benefits">
         {[
           ['01', 'BUILD', 'Craft thoughtful questions without losing the editorial narrative thread.'],
@@ -311,7 +370,9 @@ export default function LandingPage() {
       <section className="nomi-sticky-story-section nomi-motion-section" id="experience">
         <div className="nomi-sticky-container">
           <div className="nomi-sticky-copy-column">
-            <div
+            <button
+              type="button"
+              onClick={() => setActiveMilestone(0)}
               className={`nomi-story-milestone ${activeMilestone === 0 ? 'is-active' : ''}`}
               data-milestone-index="0"
             >
@@ -320,9 +381,11 @@ export default function LandingPage() {
               <p>
                 Traditional forms present respondents with dozens of blank inputs at once. Nomi breaks friction by guiding respondents through one thought at a time with smooth transitions.
               </p>
-            </div>
+            </button>
 
-            <div
+            <button
+              type="button"
+              onClick={() => setActiveMilestone(1)}
               className={`nomi-story-milestone ${activeMilestone === 1 ? 'is-active' : ''}`}
               data-milestone-index="1"
             >
@@ -331,9 +394,11 @@ export default function LandingPage() {
               <p>
                 Respondents fly through options using keys A-D, 1-5, or Enter. No awkward clicking or hunting for tiny checkboxes.
               </p>
-            </div>
+            </button>
 
-            <div
+            <button
+              type="button"
+              onClick={() => setActiveMilestone(2)}
               className={`nomi-story-milestone ${activeMilestone === 2 ? 'is-active' : ''}`}
               data-milestone-index="2"
             >
@@ -342,13 +407,20 @@ export default function LandingPage() {
               <p>
                 When questions are easy and pleasant to answer, people give deeper, higher-quality responses.
               </p>
-            </div>
+            </button>
           </div>
 
           <div className="nomi-sticky-visual-column">
             <div className="nomi-phone-shell">
               <div className="nomi-phone-notch" />
-              <div className="nomi-phone-progress"><i style={{ width: activeMilestone === 0 ? '33%' : activeMilestone === 1 ? '66%' : '100%' }} /></div>
+              <div className="nomi-phone-progress">
+                <i
+                  style={{
+                    width: activeMilestone === 0 ? '33%' : activeMilestone === 1 ? '66%' : '100%',
+                    transition: 'width 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+                  }}
+                />
+              </div>
               <p>0{activeMilestone + 1} / 03</p>
               <h3>
                 {activeMilestone === 0
@@ -357,11 +429,23 @@ export default function LandingPage() {
                   ? 'How do you want it to feel?'
                   : 'Ready to share your story?'}
               </h3>
-              <button type="button"><b>A</b> Something thoughtful & human</button>
-              <button type="button"><b>B</b> Clean, minimal & fast</button>
+              <button
+                type="button"
+                onClick={() => setActiveMilestone((prev) => (prev + 1) % 3)}
+              >
+                <b>A</b> {activeMilestone === 0 ? 'Something thoughtful & human' : activeMilestone === 1 ? 'Fast & fluid motion' : 'Publish with one click'}
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveMilestone((prev) => (prev + 1) % 3)}
+              >
+                <b>B</b> {activeMilestone === 0 ? 'Clean, minimal & fast' : activeMilestone === 1 ? 'Calm & focused design' : 'Share private invite link'}
+              </button>
               <footer>
                 <span>Press Enter</span>
-                <strong>Next →</strong>
+                <strong onClick={() => setActiveMilestone((prev) => (prev + 1) % 3)} style={{ cursor: 'pointer' }}>
+                  Next →
+                </strong>
               </footer>
             </div>
           </div>
@@ -444,28 +528,38 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Theme Presets Showcase (Displaying All Themes) */}
+      {/* Theme Presets Showcase (Skipping the last theme to display 12 balanced cards) */}
       <section className="nomi-design-section nomi-motion-section" id="design">
         <div className="nomi-design-heading">
           <p className="nomi-eyebrow">Design with feeling</p>
           <h2>A form that looks like <em>you.</em></h2>
-          <p>Choose from our curated collection of {THEME_PRESETS.length} vibrant themes or customize every color, font, alignment, and corner radius.</p>
+          <p>Choose any curated theme to instantly create a new form with that aesthetic.</p>
         </div>
 
         <div className="nomi-theme-grid">
-          {THEME_PRESETS.map((preset) => (
+          {THEME_PRESETS.slice(0, -1).map((preset) => (
             <article
               className="nomi-theme-card"
               key={preset.id}
+              onClick={() => handleSelectTheme(preset)}
               style={{
                 backgroundColor: preset.theme.backgroundColor,
                 color: preset.theme.textColor,
               }}
+              title={`Create a new form with ${preset.name} theme`}
             >
-              <span>{preset.name}</span>
-              <h3>What matters most?</h3>
-              <p style={{ backgroundColor: preset.theme.answerColor }}>Your answer</p>
-              <b style={{ backgroundColor: preset.theme.primaryColor }}>Continue →</b>
+              <div>
+                <span>{preset.name}</span>
+                <h3>{preset.description.split(' ').slice(0, 5).join(' ')}...</h3>
+              </div>
+              <div>
+                <p style={{ backgroundColor: preset.theme.answerColor, color: preset.theme.textColor }}>
+                  Sample answer input
+                </p>
+                <b style={{ backgroundColor: preset.theme.primaryColor }}>
+                  {creatingThemeId === preset.id ? 'Creating...' : 'Use Theme →'}
+                </b>
+              </div>
             </article>
           ))}
         </div>
