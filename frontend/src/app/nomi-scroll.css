@@ -127,72 +127,78 @@ html {
 }
 
 /* --------------------------------------------------------------------------
-   Sticky Storytelling Section ("One question at a time")
+   Sticky Storytelling Section ("One question at a time") — Purple Atmosphere
    -------------------------------------------------------------------------- */
 .nomi-sticky-story-section {
   position: relative;
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 100px clamp(20px, 6vw, 64px);
+  background: linear-gradient(145deg, #1A0F26 0%, #29173E 50%, #150A20 100%);
+  color: #FFFFFF;
+  padding: 80px clamp(20px, 6vw, 64px) 100px;
+  overflow: hidden;
+  border-top: 1px solid rgba(175, 130, 220, 0.2);
+  border-bottom: 1px solid rgba(175, 130, 220, 0.2);
 }
 
 .nomi-sticky-container {
+  max-width: 1240px;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(360px, 0.9fr);
-  gap: clamp(40px, 6vw, 90px);
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: clamp(32px, 5vw, 64px);
   align-items: start;
 }
 
 .nomi-sticky-copy-column {
   display: flex;
   flex-direction: column;
-  gap: 120px;
-  padding: 60px 0 160px;
+  gap: 48px;
+  padding: 20px 0 60px;
 }
 
 .nomi-story-milestone {
-  padding: 36px 32px;
-  border-radius: 20px;
-  border: 1px solid rgba(220, 198, 226, 0.65);
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 12px 34px rgba(80, 50, 90, 0.05);
-  backdrop-filter: blur(14px);
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  padding: 26px 28px;
+  border-radius: 18px;
+  border: 1px solid rgba(180, 140, 230, 0.25);
+  background: rgba(38, 22, 56, 0.72);
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(16px);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .nomi-story-milestone.is-active {
-  border-color: #D295B4;
-  box-shadow: 0 20px 48px rgba(198, 90, 135, 0.14);
-  transform: translateX(8px);
+  border-color: #EC4899;
+  box-shadow: 0 20px 50px rgba(236, 72, 153, 0.2), 0 0 28px rgba(168, 85, 247, 0.2);
+  transform: translateX(6px);
+  background: rgba(48, 28, 72, 0.85);
 }
 
 .nomi-story-milestone span.milestone-num {
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 850;
   letter-spacing: 0.14em;
-  color: #B54E7D;
+  color: #F472B6;
   text-transform: uppercase;
 }
 
 .nomi-story-milestone h3 {
-  margin: 12px 0 14px;
+  margin: 8px 0 10px;
   font-family: var(--nomi-serif);
-  font-size: 32px;
+  font-size: 26px;
   font-weight: 500;
-  line-height: 1.12;
-  color: #241728;
+  line-height: 1.15;
+  color: #FFFFFF;
 }
 
 .nomi-story-milestone p {
   margin: 0;
-  color: var(--nomi-text-muted);
-  font-size: 16px;
-  line-height: 1.6;
+  color: #D1C5DC;
+  font-size: 14.5px;
+  line-height: 1.55;
 }
 
 .nomi-sticky-visual-column {
   position: sticky;
-  top: 130px;
+  top: 100px;
   display: flex;
   justify-content: center;
 }
@@ -205,12 +211,12 @@ html {
   .nomi-sticky-visual-column {
     position: relative;
     top: 0;
-    margin-bottom: 40px;
+    margin-bottom: 24px;
   }
   
   .nomi-sticky-copy-column {
     padding: 0;
-    gap: 40px;
+    gap: 28px;
   }
 }
 

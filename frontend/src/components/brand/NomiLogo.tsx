@@ -18,10 +18,10 @@ export const NomiLogo: React.FC<Props> = ({
   className = '',
 }) => {
   const pixelSize = typeof size === 'number' ? size : {
-    sm: 22,
-    md: 28,
-    lg: 36,
-    xl: 46,
+    sm: 30,
+    md: 38,
+    lg: 48,
+    xl: 58,
   }[size];
 
   const primaryGradientId = React.useId();
@@ -114,10 +114,10 @@ export const NomiLogo: React.FC<Props> = ({
         </g>
       </svg>
 
-      {/* Optional Wordmark */}
+      {/* Wordmark */}
       {withWordmark && (
         <span
-          className={`font-black tracking-tight leading-none text-xl ${
+          className={`font-black tracking-tight leading-none text-2xl sm:text-3xl ${
             variant === 'white' ? 'text-white' : 'text-slate-900 dark:text-slate-100'
           } ${wordmarkClassName}`}
         >

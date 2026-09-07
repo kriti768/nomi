@@ -202,9 +202,8 @@ export default function LandingPage() {
             </Link>
 
             <nav aria-label="Primary navigation">
-              <a href="#story">Story</a>
-              <a href="#build">Build</a>
               <a href="#experience">Experience</a>
+              <a href="#build">Build</a>
               <a href="#insights">Insights</a>
               <a href="#design">Themes</a>
             </nav>
@@ -309,7 +308,7 @@ export default function LandingPage() {
       </section>
 
       {/* Sticky Storytelling Sequence: "One question at a time" */}
-      <section className="nomi-sticky-story-section nomi-motion-section" id="story">
+      <section className="nomi-sticky-story-section nomi-motion-section" id="experience">
         <div className="nomi-sticky-container">
           <div className="nomi-sticky-copy-column">
             <div
@@ -445,16 +444,16 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Theme Presets Showcase */}
+      {/* Theme Presets Showcase (Displaying All Themes) */}
       <section className="nomi-design-section nomi-motion-section" id="design">
         <div className="nomi-design-heading">
           <p className="nomi-eyebrow">Design with feeling</p>
           <h2>A form that looks like <em>you.</em></h2>
-          <p>Choose from curated themes or customize every color, font, alignment, and corner radius.</p>
+          <p>Choose from our curated collection of {THEME_PRESETS.length} vibrant themes or customize every color, font, alignment, and corner radius.</p>
         </div>
 
         <div className="nomi-theme-grid">
-          {THEME_PRESETS.slice(0, 4).map((preset) => (
+          {THEME_PRESETS.map((preset) => (
             <article
               className="nomi-theme-card"
               key={preset.id}
@@ -491,9 +490,10 @@ export default function LandingPage() {
         </Link>
         <p>Forms should feel like conversations. Built with care.</p>
         <nav>
-          <a href="#story">Story</a>
+          <a href="#experience">Experience</a>
           <a href="#build">Build</a>
           <a href="#insights">Insights</a>
+          <a href="#design">Themes</a>
           <Link href="/dashboard">My forms</Link>
         </nav>
       </footer>
