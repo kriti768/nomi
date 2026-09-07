@@ -55,18 +55,39 @@ export const CanvasStage: React.FC<Props> = ({
   const fontFamily = effectiveTheme.fontFamily;
   const cornerRadius = effectiveTheme.cornerRadius ?? 12;
 
+  const titleTextareaRef = React.useRef<HTMLTextAreaElement>(null);
+  const descTextareaRef = React.useRef<HTMLTextAreaElement>(null);
+
+  // Auto-resize title textarea to fit content and wrap cleanly
+  React.useEffect(() => {
+    if (titleTextareaRef.current) {
+      titleTextareaRef.current.style.height = 'auto';
+      titleTextareaRef.current.style.height = `${titleTextareaRef.current.scrollHeight}px`;
+    }
+  }, [question?.title, viewportMode]);
+
+  // Auto-resize description textarea
+  React.useEffect(() => {
+    if (descTextareaRef.current) {
+      descTextareaRef.current.style.height = 'auto';
+      descTextareaRef.current.style.height = `${descTextareaRef.current.scrollHeight}px`;
+    }
+  }, [question?.description, viewportMode]);
+
+  const isMobile = viewportMode === 'mobile';
+
   const content = (
     <div
-      className={`w-full mx-auto space-y-7 transition-all ${
-        viewportMode === 'mobile' ? 'max-w-xs' : 'max-w-2xl'
+      className={`w-full mx-auto transition-all ${
+        isMobile ? 'max-w-full space-y-5' : 'max-w-2xl space-y-6'
       } flex flex-col ${alignment}`}
       style={{ fontFamily }}
     >
       {/* Step Badge */}
       {showQuestionNumbers && (
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
           <div
-            className="w-8 h-8 rounded-lg text-white font-black text-[13px] flex items-center justify-center shadow-xs"
+            className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg text-white font-black text-xs sm:text-[13px] flex items-center justify-center shadow-xs"
             style={{ backgroundColor: primaryColor, borderRadius: `${Math.min(cornerRadius, 10)}px` }}
           >
             {stepNumber}
@@ -75,37 +96,60 @@ export const CanvasStage: React.FC<Props> = ({
         </div>
       )}
 
-      {/* Question Title (Inline Editing) */}
+      {/* Question Title (Auto-Wrapping Multi-Line Inline Editing) */}
       <div className="group relative w-full">
-        <input
-          type="text"
+        <textarea
+          ref={titleTextareaRef}
+          rows={1}
           value={question.title || ''}
-          onChange={(e) => onUpdateTitle(e.target.value)}
+          onChange={(e) => {
+            onUpdateTitle(e.target.value);
+            e.target.style.height = 'auto';
+            e.target.style.height = `${e.target.scrollHeight}px`;
+          }}
           placeholder="Type your question title..."
-          className="w-full bg-transparent text-[32px] md:text-[38px] font-extrabold leading-[1.15] placeholder-slate-300 dark:placeholder-slate-700 focus:outline-none border-b-2 border-transparent focus:border-indigo-600 py-2 transition-all"
-          style={{ color: textColor }}
+          className={`w-full bg-transparent font-extrabold leading-tight placeholder-slate-400/60 dark:placeholder-slate-600 focus:outline-none border-b-2 border-transparent focus:border-indigo-600/60 transition-all resize-none overflow-hidden break-words whitespace-pre-wrap ${
+            isMobile ? 'text-xl sm:text-2xl py-1' : 'text-2xl sm:text-3xl md:text-[36px] py-1.5'
+          }`}
+          style={{
+            color: textColor,
+            textAlign: effectiveTheme.textAlignment === 'center' ? 'center' : 'left',
+          }}
         />
         {question.required && (
-          <span className="text-rose-500 ml-1 text-2xl font-bold" title="Required question">
+          <span
+            className="text-rose-500 font-bold ml-1 align-top text-lg sm:text-xl inline-block"
+            title="Required question"
+          >
             *
           </span>
         )}
       </div>
 
-      {/* Description (Inline Editing) */}
+      {/* Description (Auto-Wrapping Multi-Line Inline Editing) */}
       <div className="w-full">
-        <input
-          type="text"
+        <textarea
+          ref={descTextareaRef}
+          rows={1}
           value={question.description || ''}
-          onChange={(e) => onUpdateDescription(e.target.value)}
+          onChange={(e) => {
+            onUpdateDescription(e.target.value);
+            e.target.style.height = 'auto';
+            e.target.style.height = `${e.target.scrollHeight}px`;
+          }}
           placeholder="Description (optional)"
-          className="w-full bg-transparent text-[15px] md:text-base font-medium placeholder-slate-300 dark:placeholder-slate-700 focus:outline-none border-b border-transparent focus:border-indigo-400 py-2 transition-all opacity-75"
-          style={{ color: textColor }}
+          className={`w-full bg-transparent font-medium leading-relaxed placeholder-slate-400/50 dark:placeholder-slate-600 focus:outline-none border-b border-transparent focus:border-indigo-400/60 transition-all opacity-80 resize-none overflow-hidden break-words whitespace-pre-wrap ${
+            isMobile ? 'text-xs sm:text-sm py-1' : 'text-sm sm:text-base py-1.5'
+          }`}
+          style={{
+            color: textColor,
+            textAlign: effectiveTheme.textAlignment === 'center' ? 'center' : 'left',
+          }}
         />
       </div>
 
       {/* WYSIWYG Answer Control Frame */}
-      <div className="pt-4 w-full">
+      <div className="pt-2 sm:pt-4 w-full min-w-0">
         <QuestionRenderer
           question={question}
           value={null}
@@ -115,11 +159,11 @@ export const CanvasStage: React.FC<Props> = ({
       </div>
 
       {/* Mock Respondent Action Button */}
-      <div className="pt-6">
+      <div className="pt-4 sm:pt-6">
         <button
           type="button"
           disabled
-          className="min-h-11 px-5 py-2.5 rounded-lg text-white font-bold text-sm shadow-md cursor-not-allowed opacity-90 flex items-center gap-2"
+          className="min-h-10 sm:min-h-11 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg text-white font-bold text-xs sm:text-sm shadow-md cursor-not-allowed opacity-90 flex items-center gap-2"
           style={{ backgroundColor: primaryColor, borderRadius: `${cornerRadius}px` }}
         >
           <span>OK</span>
@@ -131,18 +175,20 @@ export const CanvasStage: React.FC<Props> = ({
 
   return (
     <main
-      className="flex-1 flex flex-col justify-center px-8 md:px-16 py-12 overflow-y-auto select-none relative transition-colors"
+      className="flex-1 flex flex-col justify-center px-4 sm:px-8 md:px-16 py-8 md:py-12 overflow-y-auto select-none relative transition-colors"
       style={{ backgroundColor: viewportMode === 'desktop' ? containerBg : undefined }}
     >
       {viewportMode === 'mobile' ? (
-        <div className="flex justify-center my-auto">
+        <div className="flex justify-center my-auto py-4">
           <div
-            className="w-[340px] min-h-[580px] border-8 border-slate-800 rounded-[42px] shadow-2xl p-6 flex flex-col justify-center relative overflow-hidden ring-1 ring-slate-700/50"
+            className="w-[360px] max-w-[calc(100vw-32px)] min-h-[620px] max-h-[85vh] border-[9px] border-slate-900 dark:border-slate-800 rounded-[44px] shadow-2xl p-6 sm:p-7 flex flex-col justify-center relative overflow-y-auto overflow-x-hidden ring-1 ring-slate-700/50"
             style={{ backgroundColor: containerBg }}
           >
-            {/* Mobile Top Speaker Notch */}
-            <div className="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-4 bg-slate-800 rounded-full" />
-            {content}
+            {/* Mobile Top Speaker Notch / Dynamic Island */}
+            <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-24 h-4 bg-slate-900 dark:bg-slate-800 rounded-full" />
+            <div className="pt-4 flex-1 flex flex-col justify-center">
+              {content}
+            </div>
           </div>
         </div>
       ) : (
