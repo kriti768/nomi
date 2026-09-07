@@ -283,7 +283,7 @@ export const FormPlayer: React.FC<Props> = ({ form, isPreviewMode = false, previ
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleNext, handlePrev, isSubmitted, settings.keyboardNav, currentQuestion, answers]);
+  }, [handleNext, handlePrev, handleAnswerChange, isSubmitted, settings.keyboardNav, currentQuestion, answers]);
 
   if (isSubmitted) {
     return (

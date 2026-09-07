@@ -36,7 +36,7 @@ export default function DashboardPage() {
 
   const menuRef = useRef<HTMLDivElement | null>(null);
 
-  const loadForms = async () => {
+  const loadForms = React.useCallback(async () => {
     try {
       setLoading(true);
       const data = await api.getForms();
@@ -50,11 +50,11 @@ export default function DashboardPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [showToast]);
 
   useEffect(() => {
     loadForms();
-  }, []);
+  }, [loadForms]);
 
   // Close menus when clicking outside
   useEffect(() => {

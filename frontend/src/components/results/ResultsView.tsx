@@ -20,7 +20,7 @@ export const ResultsView: React.FC<Props> = ({ form }) => {
   const [activeTab, setActiveTab] = useState<'analytics' | 'table'>('analytics');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const loadResponses = async (showRefreshSpinner = false) => {
+  const loadResponses = React.useCallback(async (showRefreshSpinner = false) => {
     try {
       if (showRefreshSpinner) setIsRefreshing(true);
       else setLoading(true);
@@ -32,11 +32,11 @@ export const ResultsView: React.FC<Props> = ({ form }) => {
       setLoading(false);
       setIsRefreshing(false);
     }
-  };
+  }, [form.id]);
 
   useEffect(() => {
     loadResponses();
-  }, [form.id]);
+  }, [loadResponses]);
 
   const questions = form.questions || [];
 

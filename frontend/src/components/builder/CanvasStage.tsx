@@ -26,35 +26,6 @@ export const CanvasStage: React.FC<Props> = ({
   onUpdateDescription,
 }) => {
   const effectiveTheme = getEffectiveTheme(theme);
-
-  if (!question) {
-    return (
-      <main className="flex-1 bg-slate-50/50 dark:bg-slate-950/50 flex items-center justify-center p-8 select-none">
-        <div className="text-center max-w-sm">
-          <div className="w-14 h-14 rounded-2xl bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mx-auto mb-3 text-2xl font-black shadow-xs">
-            +
-          </div>
-          <h3 className="text-base font-bold text-slate-800 dark:text-slate-200">
-            No question selected
-          </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-            Select a question from the left sidebar or click "+ Add content" to create a new field.
-          </p>
-        </div>
-      </main>
-    );
-  }
-
-  const stepNumber = questionIndex + 1;
-  const showQuestionNumbers = settings?.showQuestionNumbers !== false;
-  const alignment = effectiveTheme.textAlignment === 'center' ? 'text-center items-center' : 'text-left items-start';
-
-  const containerBg = effectiveTheme.backgroundColor;
-  const textColor = effectiveTheme.textColor;
-  const primaryColor = effectiveTheme.primaryColor;
-  const fontFamily = effectiveTheme.fontFamily;
-  const cornerRadius = effectiveTheme.cornerRadius ?? 12;
-
   const titleTextareaRef = React.useRef<HTMLTextAreaElement>(null);
   const descTextareaRef = React.useRef<HTMLTextAreaElement>(null);
 
@@ -74,6 +45,33 @@ export const CanvasStage: React.FC<Props> = ({
     }
   }, [question?.description, viewportMode]);
 
+  if (!question) {
+    return (
+      <main className="flex-1 bg-slate-50/50 dark:bg-slate-950/50 flex items-center justify-center p-8 select-none">
+        <div className="text-center max-w-sm">
+          <div className="w-14 h-14 rounded-2xl bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mx-auto mb-3 text-2xl font-black shadow-xs">
+            +
+          </div>
+          <h3 className="text-base font-bold text-slate-800 dark:text-slate-200">
+            No question selected
+          </h3>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+            Select a question from the left sidebar or click &quot;+ Add content&quot; to create a new field.
+          </p>
+        </div>
+      </main>
+    );
+  }
+
+  const stepNumber = questionIndex + 1;
+  const showQuestionNumbers = settings?.showQuestionNumbers !== false;
+  const alignment = effectiveTheme.textAlignment === 'center' ? 'text-center items-center' : 'text-left items-start';
+
+  const containerBg = effectiveTheme.backgroundColor;
+  const textColor = effectiveTheme.textColor;
+  const primaryColor = effectiveTheme.primaryColor;
+  const fontFamily = effectiveTheme.fontFamily;
+  const cornerRadius = effectiveTheme.cornerRadius ?? 12;
   const isMobile = viewportMode === 'mobile';
 
   const content = (
