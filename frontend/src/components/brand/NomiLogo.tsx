@@ -118,7 +118,7 @@ export const NomiLogo: React.FC<Props> = ({
       {withWordmark && (
         <span
           className={`font-black tracking-tight leading-none text-2xl sm:text-3xl ${
-            variant === 'white' ? 'text-white' : 'text-slate-900 dark:text-slate-100'
+            variant === 'white' ? 'text-white' : 'text-[#241728]'
           } ${wordmarkClassName}`}
         >
           Nomi

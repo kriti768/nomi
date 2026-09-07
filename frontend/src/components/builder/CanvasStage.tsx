@@ -177,13 +177,13 @@ export const CanvasStage: React.FC<Props> = ({
       style={{ backgroundColor: viewportMode === 'desktop' ? containerBg : undefined }}
     >
       {viewportMode === 'mobile' ? (
-        <div className="flex justify-center my-auto py-4">
+        <div className="flex justify-center my-auto py-2 sm:py-4">
           <div
-            className="w-[360px] max-w-[calc(100vw-32px)] min-h-[620px] max-h-[85vh] border-[9px] border-slate-900 dark:border-slate-800 rounded-[44px] shadow-2xl p-6 sm:p-7 flex flex-col justify-center relative overflow-y-auto overflow-x-hidden ring-1 ring-slate-700/50"
+            className="w-full max-w-[340px] min-h-[500px] max-h-[82vh] border-[7px] sm:border-[9px] border-slate-900 dark:border-slate-800 rounded-[36px] sm:rounded-[44px] shadow-2xl p-4 sm:p-6 flex flex-col justify-center relative overflow-y-auto overflow-x-hidden ring-1 ring-slate-700/50"
             style={{ backgroundColor: containerBg }}
           >
             {/* Mobile Top Speaker Notch / Dynamic Island */}
-            <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-24 h-4 bg-slate-900 dark:bg-slate-800 rounded-full" />
+            <div className="absolute top-2 left-1/2 -translate-x-1/2 w-20 sm:w-24 h-3.5 sm:h-4 bg-slate-900 dark:bg-slate-800 rounded-full" />
             <div className="pt-4 flex-1 flex flex-col justify-center">
               {content}
             </div>
