@@ -276,9 +276,9 @@
   max-width: 1240px;
   margin: 32px auto 0;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(440px, 0.95fr);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   align-items: center;
-  gap: clamp(32px, 5vw, 72px);
+  gap: clamp(28px, 4vw, 64px);
 }
 
 .nomi-eyebrow {
@@ -1056,64 +1056,118 @@
 }
 
 /* --------------------------------------------------------------------------
-   Responsive Layouts (Tablet & Mobile)
+   Responsive Layouts (Tablet & Mobile Perfection)
    -------------------------------------------------------------------------- */
 @media (max-width: 960px) {
   .nomi-nav nav {
     display: none;
   }
   
+  .nomi-nav-inner {
+    padding: 0 16px;
+  }
+  
   .nomi-hero-grid {
     grid-template-columns: 1fr;
-    gap: 48px;
-    margin-top: 40px;
+    gap: 36px;
+    margin-top: 24px;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .nomi-hero-copy h1 {
+    font-size: clamp(38px, 8vw, 56px);
+  }
+  
+  .nomi-lede {
+    font-size: 15.5px;
+  }
+  
+  .nomi-product-wrap,
+  .nomi-product-preview {
+    width: 100%;
+    max-width: 100%;
   }
   
   .nomi-showcase,
   .nomi-insights {
     grid-template-columns: 1fr;
-    gap: 50px;
-    padding: 90px clamp(20px, 6vw, 48px);
-  }
-  
-  .nomi-experience-section .nomi-phone-shell {
-    order: 2;
-  }
-  
-  .nomi-experience-section .nomi-section-copy {
-    order: 1;
+    gap: 40px;
+    padding: 72px 20px;
   }
   
   .nomi-theme-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
   
   .nomi-footer {
     flex-direction: column;
     align-items: flex-start;
+    gap: 20px;
+    padding: 40px 20px;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   .nomi-hero {
-    padding-left: 18px;
-    padding-right: 18px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 24px;
+    overflow-x: hidden;
   }
   
   .nomi-workspace-link {
     display: none;
   }
   
+  .nomi-hero-copy h1 {
+    font-size: clamp(32px, 8.5vw, 44px);
+    margin: 12px 0 16px;
+    line-height: 1.06;
+  }
+  
+  .nomi-lede {
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  
+  .nomi-cta-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  
+  .nomi-cta-row .nomi-button {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .nomi-preview-body {
+    padding: 16px 14px 20px;
+  }
+  
+  .nomi-preview-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .nomi-preview-footer button {
+    width: 100%;
+  }
+  
   .nomi-value-strip {
     grid-template-columns: 1fr;
-    gap: 24px;
-    padding: 60px 20px;
+    gap: 12px;
+    padding: 40px 16px 70px;
   }
   
   .nomi-value-strip article {
     border-left: 0;
     border-top: 1px solid var(--nomi-border);
-    padding: 20px 0;
+    padding: 16px 0;
     min-height: auto;
   }
   
@@ -1121,20 +1175,55 @@
     border-top: 0;
   }
   
+  .nomi-value-strip p {
+    max-width: 100%;
+  }
+  
   .nomi-builder-card {
     grid-template-columns: 1fr;
+    min-height: auto;
   }
   
   .nomi-builder-card aside {
     display: none;
   }
   
+  .nomi-builder-canvas {
+    padding: 18px 14px;
+  }
+  
   .nomi-phone-shell {
-    height: 560px;
+    width: 100%;
+    max-width: 300px;
+    height: 500px;
+    padding: 44px 14px 54px;
+  }
+  
+  .nomi-insights-card {
+    padding: 20px 16px;
+  }
+  
+  .nomi-design-section {
+    padding: 60px 16px;
   }
   
   .nomi-theme-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .nomi-theme-card {
+    min-height: 180px;
+    padding: 18px;
+  }
+  
+  .nomi-final {
+    padding: 60px 16px;
+  }
+  
+  .nomi-final h2 {
+    font-size: clamp(32px, 8.5vw, 44px);
+    margin: 14px 0 24px;
   }
 }
 
