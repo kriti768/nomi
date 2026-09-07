@@ -489,20 +489,20 @@
 }
 
 /* --------------------------------------------------------------------------
-   Value Strip (01 BUILD, 02 SHARE, 03 UNDERSTAND) — Tight & Balanced
+   Value Strip (01 BUILD, 02 SHARE, 03 UNDERSTAND) — Generous Bottom Space
    -------------------------------------------------------------------------- */
 .nomi-value-strip {
   max-width: 1240px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  padding: 16px clamp(20px, 5vw, 48px) 24px;
-  gap: 16px;
+  padding: 48px clamp(20px, 5vw, 48px) 200px;
+  gap: 24px;
 }
 
 .nomi-value-strip article {
   min-height: auto;
-  padding: 8px 24px;
+  padding: 12px 28px;
   border-left: 1px solid var(--nomi-border);
   position: relative;
 }

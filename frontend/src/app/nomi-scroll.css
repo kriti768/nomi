@@ -127,15 +127,26 @@ html {
 }
 
 /* --------------------------------------------------------------------------
-   Sticky Storytelling Section ("One question at a time") — Purple Atmosphere & Organic Flow
+   Sticky Storytelling Section ("One question at a time") — Rich Dark Purple Fast Entrance
    -------------------------------------------------------------------------- */
 .nomi-sticky-story-section {
   position: relative;
-  background: linear-gradient(180deg, #FFF9F7 0%, #2A173E 70px, #180D26 100%);
+  background: #140822;
   color: #FFFFFF;
   padding: 80px clamp(20px, 6vw, 64px) 100px;
   overflow: hidden;
   border-bottom: 1px solid rgba(175, 130, 220, 0.2);
+  transition: opacity 0.25s ease-out, transform 0.3s cubic-bezier(0.12, 0.95, 0.2, 1) !important;
+}
+
+.nomi-sticky-story-section:not(.is-visible) {
+  opacity: 0.1;
+  transform: translateY(50px) scale(0.99);
+}
+
+.nomi-sticky-story-section.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 .nomi-sticky-container {

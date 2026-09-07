@@ -168,7 +168,7 @@ export default function LandingPage() {
           entry.target.classList.toggle('is-visible', entry.isIntersecting);
         });
       },
-      { threshold: 0.1, rootMargin: '0px 0px -6% 0px' }
+      { threshold: 0.05, rootMargin: '0px 0px 40px 0px' }
     );
     sections.forEach((section) => observer.observe(section));
 
