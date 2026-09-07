@@ -65,7 +65,12 @@ export const AccessibilityPanel: React.FC<Props> = ({ isOpen, form, onClose }) =
       {/* Header */}
       <div className="builder-drawer-header border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <span className="w-10 h-10 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 inline-flex items-center justify-center"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="4" r="2" strokeWidth="2"/><path d="M12 7v5m0 0 4 7m-4-7-4 7m4-7 6 2" strokeLinecap="round" strokeWidth="2"/></svg></span>
+          <span className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 inline-flex items-center justify-center border border-emerald-200 dark:border-emerald-800 shadow-2xs">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <circle cx="12" cy="4" r="2" strokeWidth="2.5" />
+              <path d="M12 7v5m0 0 4 7m-4-7-4 7m4-7 6 2" strokeLinecap="round" strokeWidth="2.5" />
+            </svg>
+          </span>
           <h3 className="font-extrabold text-[18px] text-slate-900 dark:text-slate-100">
             Accessibility Checker
           </h3>

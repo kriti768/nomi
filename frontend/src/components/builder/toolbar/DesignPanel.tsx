@@ -62,7 +62,7 @@ export const DesignPanel: React.FC<Props> = ({
         <div>
           <div className="flex items-center justify-between mb-3">
             <label className="text-[13px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-              Theme Presets (5)
+              Theme Presets ({THEME_PRESETS.length})
             </label>
             <span className="text-[13px] font-semibold text-indigo-600 dark:text-indigo-400">
               {THEME_PRESETS.find(p => p.id === (currentTheme.preset || 'forma_default'))?.name || 'Custom'}

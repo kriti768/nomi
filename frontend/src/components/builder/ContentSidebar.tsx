@@ -14,15 +14,103 @@ interface Props {
   onDuplicateQuestion: (question: Question) => void;
 }
 
-const TYPE_BADGES: Record<QuestionType, { label: string; icon: string }> = {
-  short_text: { label: 'Short text', icon: 'Aa' },
-  long_text: { label: 'Long text', icon: '¶' },
-  multiple_choice: { label: 'Multiple choice', icon: '◉' },
-  dropdown: { label: 'Dropdown', icon: '▼' },
-  email: { label: 'Email', icon: '@' },
-  number: { label: 'Number', icon: '#' },
-  yes_no: { label: 'Yes/No', icon: 'Y/N' },
-  rating: { label: 'Rating', icon: '★' },
+interface TypeMeta {
+  label: string;
+  bgClass: string;
+  textClass: string;
+  borderClass: string;
+  icon: React.ReactNode;
+}
+
+const TYPE_CONFIG: Record<QuestionType, TypeMeta> = {
+  short_text: {
+    label: 'Short Text',
+    bgClass: 'bg-sky-50 dark:bg-sky-950/60',
+    textClass: 'text-sky-600 dark:text-sky-400',
+    borderClass: 'border-sky-200 dark:border-sky-800',
+    icon: (
+      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 6h16M4 12h10M4 18h7" />
+      </svg>
+    ),
+  },
+  long_text: {
+    label: 'Long Text',
+    bgClass: 'bg-indigo-50 dark:bg-indigo-950/60',
+    textClass: 'text-indigo-600 dark:text-indigo-400',
+    borderClass: 'border-indigo-200 dark:border-indigo-800',
+    icon: (
+      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 10h16M4 14h16M4 18h10" />
+      </svg>
+    ),
+  },
+  multiple_choice: {
+    label: 'Multiple Choice',
+    bgClass: 'bg-purple-50 dark:bg-purple-950/60',
+    textClass: 'text-purple-600 dark:text-purple-400',
+    borderClass: 'border-purple-200 dark:border-purple-800',
+    icon: (
+      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+  },
+  dropdown: {
+    label: 'Dropdown',
+    bgClass: 'bg-emerald-50 dark:bg-emerald-950/60',
+    textClass: 'text-emerald-600 dark:text-emerald-400',
+    borderClass: 'border-emerald-200 dark:border-emerald-800',
+    icon: (
+      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
+      </svg>
+    ),
+  },
+  email: {
+    label: 'Email',
+    bgClass: 'bg-amber-50 dark:bg-amber-950/60',
+    textClass: 'text-amber-600 dark:text-amber-400',
+    borderClass: 'border-amber-200 dark:border-amber-800',
+    icon: (
+      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      </svg>
+    ),
+  },
+  number: {
+    label: 'Number',
+    bgClass: 'bg-rose-50 dark:bg-rose-950/60',
+    textClass: 'text-rose-600 dark:text-rose-400',
+    borderClass: 'border-rose-200 dark:border-rose-800',
+    icon: (
+      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+      </svg>
+    ),
+  },
+  yes_no: {
+    label: 'Yes / No',
+    bgClass: 'bg-fuchsia-50 dark:bg-fuchsia-950/60',
+    textClass: 'text-fuchsia-600 dark:text-fuchsia-400',
+    borderClass: 'border-fuchsia-200 dark:border-fuchsia-800',
+    icon: (
+      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+      </svg>
+    ),
+  },
+  rating: {
+    label: 'Rating',
+    bgClass: 'bg-yellow-50 dark:bg-yellow-950/60',
+    textClass: 'text-yellow-600 dark:text-yellow-400',
+    borderClass: 'border-yellow-200 dark:border-yellow-800',
+    icon: (
+      <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+      </svg>
+    ),
+  },
 };
 
 export const ContentSidebar: React.FC<Props> = ({
@@ -67,19 +155,20 @@ export const ContentSidebar: React.FC<Props> = ({
   };
 
   return (
-    <aside className="hidden lg:flex w-[288px] border-r border-slate-200/80 dark:border-slate-800/80 bg-slate-50/60 dark:bg-slate-900/60 flex-col h-[calc(100vh-4rem)] shrink-0 select-none">
+    <aside className="hidden lg:flex w-[296px] border-r border-slate-200/80 dark:border-slate-800/80 bg-slate-50/70 dark:bg-slate-900/70 flex-col h-[calc(100vh-4rem)] shrink-0 select-none">
       {/* Sidebar Section Title */}
       <div className="px-5 py-4 border-b border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between">
-        <span className="text-[13px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-          CONTENT ({questions.length})
+        <span className="text-[12px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+          QUESTIONS & CONTENT ({questions.length})
         </span>
       </div>
 
       {/* Questions Sequenced List */}
-      <div className="flex-1 overflow-y-auto p-3 space-y-1.5">
+      <div className="flex-1 overflow-y-auto p-3 space-y-2">
         {questions.length === 0 ? (
-          <div className="text-center py-10 px-3 text-slate-400 dark:text-slate-600 text-xs font-medium">
-            No questions yet. Click "+ Add content" to begin.
+          <div className="text-center py-12 px-4 text-slate-400 dark:text-slate-600 text-xs font-medium space-y-2">
+            <p>No questions yet.</p>
+            <p className="text-[11px] text-slate-500">Click &quot;Add content&quot; below to insert your first field.</p>
           </div>
         ) : (
           questions.map((q, index) => {
@@ -87,7 +176,7 @@ export const ContentSidebar: React.FC<Props> = ({
             const isDragging = draggedIndex === index;
             const isDragOver = dragOverIndex === index;
             const stepNum = String(index + 1).padStart(2, '0');
-            const badge = TYPE_BADGES[q.type] || { label: q.type, icon: 'Q' };
+            const meta = TYPE_CONFIG[q.type] || TYPE_CONFIG.short_text;
 
             return (
               <div
@@ -98,46 +187,50 @@ export const ContentSidebar: React.FC<Props> = ({
                 onDrop={(e) => handleDrop(e, index)}
                 onDragEnd={handleDragEnd}
                 onClick={() => onSelectQuestion(q.id)}
-                className={`group relative flex items-start gap-2.5 px-3 py-3 rounded-lg text-left transition-all border min-h-[68px] ${
+                className={`group relative flex items-start gap-2.5 px-3 py-2.5 rounded-xl text-left transition-all border min-h-[64px] ${
                   isDragging
                     ? 'dragging-item opacity-40 bg-slate-200 border-dashed border-indigo-400'
                     : isDragOver
                     ? 'border-t-2 border-t-indigo-600 bg-indigo-50/40 dark:bg-indigo-950/20'
                     : isSelected
-                    ? 'bg-indigo-50/70 dark:bg-indigo-950/40 text-indigo-900 dark:text-indigo-200 font-bold border-l-4 border-l-indigo-600 border-transparent shadow-sm'
-                    : 'bg-transparent border-transparent hover:bg-slate-200/50 dark:hover:bg-slate-800/50 text-slate-700 dark:text-slate-300'
+                    ? 'bg-white dark:bg-slate-800/90 text-slate-900 dark:text-slate-100 font-bold border-indigo-500 shadow-sm ring-1 ring-indigo-500/20'
+                    : 'bg-white/60 dark:bg-slate-900/60 border-slate-200/70 dark:border-slate-800/70 hover:bg-white dark:hover:bg-slate-800/70 hover:border-slate-300 text-slate-700 dark:text-slate-300'
                 } cursor-pointer`}
               >
-                {/* Drag Handle (Visible on hover) */}
+                {/* Drag Handle */}
                 <div
-                  className="cursor-grab active:cursor-grabbing text-slate-300 group-hover:text-slate-500 text-[18px] leading-none font-mono px-0.5 mt-1 shrink-0"
+                  className="cursor-grab active:cursor-grabbing text-slate-300 group-hover:text-slate-500 text-[16px] leading-none font-mono px-0.5 mt-1 shrink-0"
                   title="Drag to reorder"
                 >
-                  ::
+                  ⋮⋮
                 </div>
 
                 {/* Step Number */}
-                <span className="text-[12px] font-extrabold text-slate-400 group-hover:text-indigo-600 mt-1 shrink-0 w-5">
+                <span className="text-[11px] font-extrabold text-slate-400 group-hover:text-indigo-600 mt-1 shrink-0 w-4">
                   {stepNum}
                 </span>
 
-                {/* Type Icon Badge */}
-                <span className="w-6 h-6 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[11px] font-black flex items-center justify-center text-slate-700 dark:text-slate-300 shrink-0 mt-0.5 shadow-2xs">
-                  {badge.icon}
+                {/* Distinct Colored Type Icon Badge */}
+                <span
+                  className={`w-6 h-6 rounded-lg ${meta.bgClass} ${meta.textClass} border ${meta.borderClass} flex items-center justify-center shrink-0 mt-0.5 shadow-2xs`}
+                  title={meta.label}
+                >
+                  {meta.icon}
                 </span>
 
                 {/* Question Info & Subtitle */}
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm font-semibold truncate leading-snug" title={q.title || 'Untitled Question'}>
+                  <div className="text-xs font-bold truncate leading-tight" title={q.title || 'Untitled Question'}>
                     {q.title || 'Untitled Question'}
                   </div>
-                  <div className="text-[12px] text-slate-400 font-medium leading-tight mt-1">
-                    {badge.label}
+                  <div className="text-[11px] text-slate-400 dark:text-slate-500 font-medium leading-tight mt-0.5 flex items-center gap-1.5">
+                    <span>{meta.label}</span>
+                    {q.required && <span className="text-rose-500 font-bold text-[10px]">• req</span>}
                   </div>
                 </div>
 
                 {/* Actions overlay on hover */}
-                <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 dark:bg-slate-800/90 rounded px-1 shadow-sm mt-0.5">
+                <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity bg-white/95 dark:bg-slate-800/95 rounded-lg px-1 shadow-sm mt-0.5 border border-slate-200 dark:border-slate-700">
                   <button
                     type="button"
                     disabled={index === 0}
@@ -145,10 +238,10 @@ export const ContentSidebar: React.FC<Props> = ({
                       e.stopPropagation();
                       onMoveQuestion(index, 'up');
                     }}
-                    className="w-7 h-7 inline-flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 disabled:opacity-20 rounded hover:bg-slate-100 dark:hover:bg-slate-700"
+                    className="w-6 h-6 inline-flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 disabled:opacity-20 rounded"
                     title="Move up"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="m6 14 6-6 6 6" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" /></svg>
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="m6 14 6-6 6 6" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" /></svg>
                   </button>
                   <button
                     type="button"
@@ -157,10 +250,10 @@ export const ContentSidebar: React.FC<Props> = ({
                       e.stopPropagation();
                       onMoveQuestion(index, 'down');
                     }}
-                    className="w-7 h-7 inline-flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 disabled:opacity-20 rounded hover:bg-slate-100 dark:hover:bg-slate-700"
+                    className="w-6 h-6 inline-flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 disabled:opacity-20 rounded"
                     title="Move down"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="m6 10 6 6 6-6" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" /></svg>
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="m6 10 6 6 6-6" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" /></svg>
                   </button>
                   <button
                     type="button"
@@ -168,10 +261,10 @@ export const ContentSidebar: React.FC<Props> = ({
                       e.stopPropagation();
                       onDuplicateQuestion(q);
                     }}
-                    className="w-7 h-7 inline-flex items-center justify-center text-slate-400 hover:text-indigo-600 rounded hover:bg-slate-100 dark:hover:bg-slate-700"
+                    className="w-6 h-6 inline-flex items-center justify-center text-slate-400 hover:text-indigo-600 rounded"
                     title="Duplicate"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2" strokeWidth="2"/><path d="M15 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h3" strokeWidth="2"/></svg>
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2" strokeWidth="2"/><path d="M15 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h3" strokeWidth="2"/></svg>
                   </button>
                   <button
                     type="button"
@@ -179,10 +272,10 @@ export const ContentSidebar: React.FC<Props> = ({
                       e.stopPropagation();
                       onDeleteQuestion(q.id);
                     }}
-                    className="w-7 h-7 inline-flex items-center justify-center text-slate-400 hover:text-rose-600 rounded hover:bg-rose-50 dark:hover:bg-rose-950/30"
+                    className="w-6 h-6 inline-flex items-center justify-center text-slate-400 hover:text-rose-600 rounded"
                     title="Delete"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18" strokeLinecap="round" strokeWidth="2"/></svg>
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18" strokeLinecap="round" strokeWidth="2.5"/></svg>
                   </button>
                 </div>
               </div>
@@ -195,7 +288,7 @@ export const ContentSidebar: React.FC<Props> = ({
       <div className="p-3 border-t border-slate-200/80 dark:border-slate-800/80 bg-white dark:bg-slate-900">
         <button
           onClick={onOpenAddModal}
-          className="w-full min-h-11 flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-slate-900 hover:bg-slate-800 dark:bg-indigo-600 dark:hover:bg-indigo-700 text-white font-bold text-sm shadow-sm transition-all cursor-pointer"
+          className="w-full min-h-11 flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-indigo-600 dark:hover:bg-indigo-700 text-white font-bold text-sm shadow-sm transition-all cursor-pointer"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 4v16m8-8H4" />

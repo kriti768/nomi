@@ -40,8 +40,13 @@ export const FormSettingsPanel: React.FC<Props> = ({
     <div className="builder-drawer fixed inset-y-0 right-0 z-50 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col animate-slideNextIn select-none">
       {/* Header */}
       <div className="builder-drawer-header border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="w-10 h-10 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 inline-flex items-center justify-center"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" strokeWidth="2"/><path d="M19.4 15a1.7 1.7 0 00.34 1.88l.06.06-2.1 2.1-.06-.06A1.7 1.7 0 0015.76 19a1.7 1.7 0 00-1.05 1.56V21h-3v-.44A1.7 1.7 0 0010.66 19a1.7 1.7 0 00-1.88-.34l-.06.06-2.1-2.1.06-.06A1.7 1.7 0 007 14.68 1.7 1.7 0 005.44 13.6H5v-3h.44A1.7 1.7 0 007 9.56a1.7 1.7 0 00-.34-1.88l-.06-.06 2.1-2.1.06.06A1.7 1.7 0 0010.64 6a1.7 1.7 0 001.07-1.56V4h3v.44A1.7 1.7 0 0015.76 6a1.7 1.7 0 001.88-.34l.06-.06 2.1 2.1-.06.06a1.7 1.7 0 00-.34 1.88A1.7 1.7 0 0020.96 10.7H21v3h-.44A1.7 1.7 0 0019.4 15z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5"/></svg></span>
+        <div className="flex items-center gap-3">
+          <span className="w-10 h-10 rounded-xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 inline-flex items-center justify-center border border-rose-200 dark:border-rose-800 shadow-2xs">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="3" strokeWidth="2.5" />
+              <path d="M19.4 15a1.7 1.7 0 00.34 1.88l.06.06-2.1 2.1-.06-.06A1.7 1.7 0 0015.76 19a1.7 1.7 0 00-1.05 1.56V21h-3v-.44A1.7 1.7 0 0010.66 19a1.7 1.7 0 00-1.88-.34l-.06.06-2.1-2.1.06-.06A1.7 1.7 0 007 14.68 1.7 1.7 0 005.44 13.6H5v-3h.44A1.7 1.7 0 007 9.56a1.7 1.7 0 00-.34-1.88l-.06-.06 2.1-2.1.06.06A1.7 1.7 0 0010.64 6a1.7 1.7 0 001.07-1.56V4h3v.44A1.7 1.7 0 0015.76 6a1.7 1.7 0 001.88-.34l.06-.06 2.1 2.1-.06.06a1.7 1.7 0 00-.34 1.88A1.7 1.7 0 0020.96 10.7H21v3h-.44A1.7 1.7 0 0019.4 15z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" />
+            </svg>
+          </span>
           <h3 className="font-extrabold text-[18px] text-slate-900 dark:text-slate-100">
             Form Settings
           </h3>
