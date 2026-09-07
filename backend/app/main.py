@@ -2,27 +2,58 @@ from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from typing import List
+import os
 
-from app.database import engine, Base, get_db
+from app.database import engine, Base, get_db, SessionLocal
 from app import crud, schemas
+from app.models import FormModel
 
 # Initialize Database Tables
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="Forma API", version="1.0.0")
+app = FastAPI(title="Nomi API", version="1.0.0")
 
-# Enable CORS for Next.js frontend
+# Enable CORS for Next.js frontend (allow any origin safely)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+def auto_seed_if_needed():
+    """Automatically seed sample forms if database is empty on cloud startup"""
+    try:
+        db = SessionLocal()
+        count = db.query(FormModel).count()
+        db.close()
+        if count == 0:
+            print("Database is empty on startup. Running auto-seed...")
+            from seed import seed
+            seed()
+    except Exception as e:
+        print(f"Auto-seed check warning: {e}")
+
+@app.on_event("startup")
+def on_startup():
+    auto_seed_if_needed()
+
+@app.get("/")
+@app.get("/health")
 @app.get("/api/health")
 def health_check():
-    return {"status": "ok", "app": "Forma Backend"}
+    return {"status": "ok", "app": "Nomi Backend", "version": "1.0.0"}
+
+@app.post("/api/seed")
+def trigger_seed():
+    """Manual trigger to re-seed demo forms anytime"""
+    try:
+        from seed import seed
+        seed()
+        return {"status": "success", "message": "Forms seeded successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 # --- Form Endpoints ---
 @app.get("/api/forms", response_model=List[schemas.FormSchema])

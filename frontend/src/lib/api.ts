@@ -1,6 +1,8 @@
 import { FormSchema, Question, FormResponse } from '@/types/form';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+const rawApiUrl = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api').trim();
+const cleanUrl = rawApiUrl.replace(/\/+$/, '');
+const API_BASE = cleanUrl.endsWith('/api') ? cleanUrl : `${cleanUrl}/api`;
 
 async function handleResponse<T>(res: Response): Promise<T> {
   if (!res.ok) {
