@@ -378,6 +378,13 @@ npm run dev
 Open `http://localhost:3000` in your browser.
 
 ---
+MY NOTES:
+<img width="789" height="449" alt="image" src="https://github.com/user-attachments/assets/9daea2d6-bab6-4d3d-b240-386c3091fd37" />
+<img width="711" height="348" alt="image" src="https://github.com/user-attachments/assets/563dfa8a-006d-4dd2-818c-e837cb3c69a6" />
+<img width="693" height="322" alt="image" src="https://github.com/user-attachments/assets/feba30b6-da66-4848-9646-e22ee8473a73" />
+
+
+
 
 ## Assignment Compliance Checklist
 
