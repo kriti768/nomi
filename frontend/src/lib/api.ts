@@ -118,7 +118,7 @@ export const api = {
     return handleResponse<FormSchema>(res);
   },
 
-  async submitResponse(formId: string, answers: { question_id: string; value: any }[]): Promise<FormResponse> {
+  async submitResponse(formId: string, answers: { question_id: string; value: unknown }[]): Promise<FormResponse> {
     const res = await fetch(`${API_BASE}/forms/${formId}/responses`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

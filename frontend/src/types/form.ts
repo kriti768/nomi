@@ -33,7 +33,7 @@ export interface Question {
   position: number;
   choices?: QuestionChoice[];
   settings?: QuestionSettings;
-  logic?: Record<string, any>[];
+  logic?: Record<string, unknown>[];
 }
 
 export interface FormTheme {
@@ -73,7 +73,7 @@ export interface FormSchema {
 export interface Answer {
   id?: string;
   question_id: string;
-  value: any;
+  value: unknown;
 }
 
 export interface FormResponse {
