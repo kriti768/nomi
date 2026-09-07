@@ -8,6 +8,7 @@ Nomi is an editorial, Typeform-inspired conversational form platform designed to
 
 ## 🚀 Live Cloud Deployment
 
+- **Live Web Application (Vercel)**: [https://nomi-beryl.vercel.app/](https://nomi-beryl.vercel.app/)
 - **Live Backend API (Render)**: [https://nomi-kxzl.onrender.com/api/forms](https://nomi-kxzl.onrender.com/api/forms)
 - **Backend Health Check**: [https://nomi-kxzl.onrender.com/api/health](https://nomi-kxzl.onrender.com/api/health)
 - **Interactive API Docs (Swagger)**: [https://nomi-kxzl.onrender.com/docs](https://nomi-kxzl.onrender.com/docs)
@@ -21,6 +22,11 @@ Nomi is an editorial, Typeform-inspired conversational form platform designed to
 - [Assumptions, Mocked Data & Design Notes](#assumptions-mocked-data--design-notes)
 - [Core Workflow](#core-workflow)
 - [Features](#features)
+  - [Form Builder Studio](#form-builder-studio)
+  - [Respondent Experience & Hotkeys](#respondent-experience--hotkeys)
+  - [Workspace Dashboard](#workspace-dashboard)
+  - [Results, Completion Rates & CSV Export](#results-completion-rates--csv-export)
+- [Code Quality & Architecture Modularity](#code-quality--architecture-modularity)
 - [Tech Stack](#tech-stack)
 - [System Architecture](#system-architecture)
 - [System Flows](#system-flows)
@@ -44,7 +50,7 @@ Traditional web forms present respondents with walls of inputs, leading to high 
 1. **Focused Pacing**: One question presented at a time with smooth animated transitions.
 2. **Keyboard-First Interaction**: Full navigation and answering via `Enter`, arrow keys, letters (`A`–`D`), numbers (`1`–`9`), and `Y`/`N`.
 3. **Real-Time Creator Studio**: WYSIWYG canvas, multi-line question cards, live responsive viewport toggling, 12 bespoke themes, and drag-and-drop reordering.
-4. **Instant Actionable Analytics**: Real-time aggregation of submissions into metric cards, 5-star rating breakdowns, choice distributions, search filters, and direct CSV export.
+4. **Instant Actionable Analytics**: Real-time aggregation of submissions into metric cards, completion rate calculation, 5-star rating breakdowns, choice distributions, search filters, and direct CSV exports from both the dashboard and results view.
 
 ---
 
@@ -73,8 +79,8 @@ flowchart LR
     B --> C[Customize Tokens]
     C --> D[Live Preview Stage]
     D --> E[Publish & Share Link]
-    E --> F[Respondents Answer]
-    F --> G[Real-Time Analytics & CSV Export]
+    E --> F[Respondents Answer & Auto-Save Draft]
+    F --> G[Real-Time Analytics, Completion Rate & CSV Export]
 ```
 
 1. **Create**: Initialize new forms in the workspace or duplicate existing forms.
@@ -82,7 +88,7 @@ flowchart LR
 3. **Preview**: Test conversational playback inside simulated mobile and desktop viewports with `Escape` hotkey exit.
 4. **Publish**: Toggle public availability and copy the shareable link (`/f/:id`).
 5. **Respond**: Anonymous respondents answer without authentication; partial answers automatically persist locally.
-6. **Analyze**: Inspect aggregate metrics, choice distribution percentages, rating averages, raw response payloads, and export to CSV.
+6. **Analyze**: Inspect aggregate metrics, completion rates, choice distribution percentages, rating averages, raw response payloads, and export clean CSV datasets.
 
 ---
 
@@ -102,8 +108,9 @@ flowchart LR
 - **Multi-Line Sidebar**: Wide sidebar (`340px`) with 2-line title wrap, step indexing, and quick drag reordering.
 - **Inspector Panel**: Type-specific settings, placeholder overrides, required toggle, and choices manager.
 - **Autosave Engine**: Debounced background persistence with visual save indicator (`Saved ✓` / `Saving...`).
+- **Mobile Responsive Header**: Dedicated mobile-optimized action controls ensuring Publish and navigation are always accessible on phones.
 
-### Respondent Experience
+### Respondent Experience & Hotkeys
 - **Fluid Conversational Flow**: Centered focus stage with slide animations.
 - **Typeform-Style Keyboard Hotkeys**:
   - `Enter` to advance / submit
@@ -113,25 +120,57 @@ flowchart LR
   - `1`–`9` for Rating scores
   - `Esc` to return to home from thank-you screen
 - **Progress Tracking**: Top progress bar with configurable percentage (`75%`) or fraction (`03 / 04`) modes.
-- **Anonymous Session Resume**: Form-specific `localStorage` draft saving with 7-day TTL and automatic cleanup on submission.
+- **Partial-Response Draft Continuity**: Form-specific `localStorage` draft saving with 7-day TTL and automatic cleanup on submission.
 - **Strict Validation**: Real-time feedback for required fields, email syntax, and numerical range limits.
 - **Customizable Thank-You Screen**: Tailored completion messaging and direct return links.
 
 ### Workspace Dashboard
 - **Form Management**: Grid and list views, search by title/description, and filter by status (`All`, `Published`, `Draft`).
 - **Sorting**: Order by recently updated, recently created, or alphabetical title.
+- **Direct CSV Export**: Export responses directly from the dashboard list item with one click.
 - **Quick Actions**: Publish/Unpublish toggle, atomic duplication, clipboard link copy, direct rename modal, and deletion with confirmation.
 
-### Results & Insights
-- **Overview Metrics**: Total responses, 24-hour activity counter, completion velocity, and live status.
+### Results, Completion Rates & CSV Export
+- **Overview Metrics**: Total responses, 24-hour activity counter, completion rate metrics, and live form status.
 - **Question-Level Breakdown**:
+  - Per-question response count and completion tracking
   - Choice percentages and visual gradient progress bars for multiple choice & dropdown
   - Yes vs. No split bars
   - 5-Star rating distribution breakdown and score averages
   - Number statistics (Average, Minimum, Maximum, Total Sum)
   - Text & Email response feeds with copy button
-- **Direct CSV Export**: Download structured `.csv` file with response IDs, timestamps, and column answers.
+- **Export Responses as CSV**: Download clean RFC-compliant `.csv` files containing Submission ID, Form Title, Submission Timestamp, and formatted question-column answers.
 - **Submissions Table & Search**: Real-time keyword filter across names, emails, and answers, plus detail modal with `Esc` close.
+
+---
+
+## Code Quality & Architecture Modularity
+
+The Nomi codebase is engineered with strict separation of concerns, high modularity, and zero lint or compiler warnings:
+
+```
+frontend/src/
+├── app/                  # Next.js 14 App Router pages
+│   ├── builder/[id]/     # Form Builder Studio & Inspector
+│   ├── dashboard/        # Workspace Dashboard
+│   ├── f/[id]/           # Conversational Form Player
+│   └── page.tsx          # Editorial Landing Page
+├── components/
+│   ├── builder/          # CanvasStage, InspectorPanel, QuestionSidebar, BuilderHeader
+│   ├── dashboard/        # StatsCards, FormGrid, CreateFormModal, RenameModal
+│   ├── fields/           # Modular Field Components (ShortText, Rating, Dropdown, etc.)
+│   ├── player/           # FormPlayer, WelcomeScreen, ThankYouScreen, ProgressBar
+│   ├── results/          # ResultsView, SummaryTab, ResponsesTable, ExportCSV
+│   └── ui/               # NomiLogo, ThemePreview, Modal, Badge, Button
+├── hooks/                # useKeyboardNav, useAutosave, useFormDraft
+├── lib/                  # api.ts (HTTP Client), themes.ts (12 Presets), types.ts (Data Models)
+└── styles/               # nomi.css, globals.css (Animation keyframes, custom tokens)
+```
+
+- **Clean & Readable**: Standardized code formatting, expressive variable naming, and comprehensive inline documentation.
+- **Strict TypeScript Typing**: No `any` escapes. Comprehensive interface definitions for Form schemas, Theme presets, and Response payloads in `types.ts`.
+- **Zero-Warning Codebase**: Fully clean `npx next lint` and `npx tsc --noEmit` build status.
+- **Reusable Field Architecture**: Every question type is an independent, isolated React component conforming to a uniform `FieldProps` interface.
 
 ---
 
@@ -310,7 +349,7 @@ cd backend
 python -m unittest test_api.py
 ```
 
-### Frontend TypeScript Verification
+### Frontend TypeScript & Lint Verification
 ```bash
 cd frontend
 npx tsc --noEmit
@@ -352,10 +391,13 @@ Open `http://localhost:3000` in your browser.
 | **Conversational Respondent Flow** | UX | ✅ | One-question-at-a-time, smooth slide transitions, large typography |
 | **Keyboard Accessibility** | UX | ✅ | `Enter`, `Arrows`, `A-D`, `Y/N`, `1-9` ratings, `ESC` exits preview/drawers |
 | **Draft Persistence & Resume** | UX | ✅ | Form-scoped `localStorage` draft saving with 7-day TTL and submission cleanup |
+| **Export Responses as CSV** | Core | ✅ | CSV export available directly from Results Analytics and Workspace Dashboard |
+| **Completion Rate Analytics** | Core | ✅ | Real-time completion velocity, question-level response counting, and drop-off tracking |
 | **Response Validation** | Quality | ✅ | Required checks, email format validation, and number bounds (client & server) |
 | **Results & Real-Time Analytics** | Core | ✅ | Metric cards, question-level distributions, submission table, search & CSV export |
 | **Theme Customization System** | Design | ✅ | 12 presets, custom colors, Google fonts, radius, text alignment |
 | **Responsive Design** | Design | ✅ | Tested and optimized across mobile, tablet, and desktop viewports |
+| **Code Quality & Modularity** | Technical | ✅ | 100% strict TypeScript, modular components, zero ESLint warnings |
 | **Automated Backend Tests** | Technical | ✅ | Full test coverage via `python -m unittest test_api.py` |
 | **Seed Demo Data** | Delivery | ✅ | 4 pre-seeded published forms showcasing all question types and realistic submissions |
 | **Submission Documentation** | Delivery | ✅ | Architecture diagrams, ERD, API specs, assumptions, notes, and setup instructions |
