@@ -1,1 +1,766 @@
-.nomi-dashboard{position:relative;min-height:100vh;overflow:hidden;background:linear-gradient(145deg,#fff9fa,#fdf8fb 45%,#f8f5ff);color:#2d2530}.nomi-dashboard-grid{position:fixed;inset:0;pointer-events:none;opacity:.55;background-image:linear-gradient(rgba(127,99,157,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(127,99,157,.055) 1px,transparent 1px);background-size:42px 42px}.nomi-dashboard-orb{position:fixed;z-index:0;width:560px;height:560px;border-radius:50%;filter:blur(34px);pointer-events:none;animation:nomi-dashboard-drift 22s ease-in-out infinite alternate}.nomi-dashboard-orb-one{top:-270px;right:-120px;background:radial-gradient(circle,rgba(144,112,195,.22),transparent 67%)}.nomi-dashboard-orb-two{bottom:-300px;left:-150px;background:radial-gradient(circle,rgba(231,135,174,.2),transparent 67%);animation-delay:-8s}.nomi-dashboard-header,.nomi-dashboard-content{position:relative;z-index:1;max-width:1240px;margin:auto}.nomi-dashboard-header{height:96px;padding:0 28px;display:flex;align-items:center;justify-content:space-between}.nomi-dashboard-brand{display:flex;align-items:center;gap:10px;color:#4a3ce1;font-size:21px;font-weight:800;text-decoration:none}.nomi-dashboard-brand>span{width:25px;height:25px;display:flex;align-items:center;justify-content:center;gap:2px;border-radius:8px;background:linear-gradient(135deg,#d46c99,#8072bb);box-shadow:0 5px 14px rgba(143,89,149,.2)}.nomi-dashboard-brand i{width:3px;height:9px;border-radius:99px;background:#fff}.nomi-dashboard-brand i:nth-child(2){height:13px}.nomi-dashboard-brand i:nth-child(3){height:6px}.nomi-dashboard-create{min-height:44px;padding:0 16px;border:0;border-radius:9px;background:linear-gradient(110deg,#c75585,#7565ad);box-shadow:0 11px 25px rgba(164,79,134,.23);color:#fff;font:700 14px inherit;cursor:pointer;transition:transform .2s,box-shadow .2s}.nomi-dashboard-create b{margin-left:8px;font-size:17px}.nomi-dashboard-create:hover{transform:translateY(-2px);box-shadow:0 15px 30px rgba(164,79,134,.3)}.nomi-dashboard-create:active{transform:scale(.98)}.nomi-dashboard-create:disabled{cursor:wait;opacity:.75}.nomi-dashboard-content{padding:68px 28px 96px}.nomi-dashboard-intro{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}.nomi-dashboard-intro p{margin:0 0 10px;color:#9c6681;font-size:12px;font-weight:800;letter-spacing:.12em}.nomi-dashboard-intro h1{margin:0;font-family:Georgia,serif;font-size:clamp(43px,5vw,64px);font-weight:500;line-height:1}.nomi-dashboard-intro span{display:block;margin-top:15px;color:#786e79;font-size:15px}.nomi-dashboard-summary{padding:16px 18px;border:1px solid rgba(170,140,188,.25);border-radius:10px;background:rgba(255,255,255,.5);text-align:right}.nomi-dashboard-summary strong{display:block;color:#785d9d;font-size:24px}.nomi-dashboard-summary span{margin:2px 0 0;color:#877c86;font-size:12px}.nomi-dashboard-controls{display:flex;align-items:center;gap:12px;margin-top:47px;padding:11px;border:1px solid rgba(221,205,220,.9);border-radius:12px;background:rgba(255,255,255,.62);box-shadow:0 12px 35px rgba(81,58,86,.05);backdrop-filter:blur(8px)}.nomi-dashboard-search{min-width:220px;flex:1;display:flex;align-items:center;gap:9px;padding:0 11px;border-right:1px solid #ede4ea;color:#9a8d97}.nomi-dashboard-search input{width:100%;height:38px;border:0;outline:0;background:transparent;color:#453b45;font:14px inherit}.nomi-dashboard-segment{display:flex;gap:3px;padding:3px;border-radius:8px;background:#f3edf4}.nomi-dashboard-segment button,.nomi-dashboard-view button{min-height:32px;padding:0 10px;border:0;border-radius:6px;background:transparent;color:#786e79;font:650 12px inherit;cursor:pointer}.nomi-dashboard-segment button.is-active,.nomi-dashboard-view button.is-active{background:#fff;color:#9b4d74;box-shadow:0 2px 7px rgba(76,49,74,.09)}.nomi-dashboard-sort{display:flex;align-items:center;gap:8px;padding:0 8px;color:#8b7e88;font-size:12px;font-weight:700;white-space:nowrap}.nomi-dashboard-sort select{max-width:150px;border:0;outline:0;background:transparent;color:#5e5360;font:650 12px inherit}.nomi-dashboard-view{display:flex;gap:2px;padding-left:7px;border-left:1px solid #ede4ea}.nomi-dashboard-view button{padding:0 8px;font-size:16px}.nomi-form-grid{display:grid;gap:17px;margin-top:24px}.nomi-form-grid-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.nomi-form-grid-list{grid-template-columns:1fr}.nomi-form-card{position:relative;display:flex;min-height:327px;flex-direction:column;padding:18px;border:1px solid rgba(213,193,211,.92);border-radius:11px;background:rgba(255,254,254,.78);box-shadow:0 10px 28px rgba(87,58,84,.06);transition:transform .22s,box-shadow .22s,border-color .22s}.nomi-form-card:hover{transform:translateY(-4px);border-color:#cc9db7;box-shadow:0 19px 39px rgba(124,68,110,.13),0 0 28px rgba(174,132,207,.09)}.nomi-form-card-top{display:flex;align-items:center;justify-content:space-between}.nomi-status{padding:5px 8px;border-radius:99px;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}.nomi-status-draft{background:#f2ebf4;color:#826c8d}.nomi-status-published{background:#f7e5ee;color:#a84f78}.nomi-form-menu{position:relative}.nomi-form-menu>button{width:31px;height:31px;border:0;border-radius:7px;background:transparent;color:#877b85;font:800 14px inherit;cursor:pointer}.nomi-form-menu>button:hover{background:#f4edf2}.nomi-form-menu [role=menu]{position:absolute;z-index:10;top:35px;right:0;min-width:155px;padding:6px;border:1px solid #e6d9e2;border-radius:8px;background:#fffdfd;box-shadow:0 14px 30px rgba(57,36,57,.14)}.nomi-form-menu [role=menu] a,.nomi-form-menu [role=menu] button{display:block;width:100%;padding:9px;border:0;border-radius:5px;background:transparent;color:#655a64;text-align:left;text-decoration:none;font:600 12px inherit;cursor:pointer}.nomi-form-menu [role=menu] a:hover,.nomi-form-menu [role=menu] button:hover{background:#f7f0f4}.nomi-form-menu .is-danger{color:#be456b}.nomi-form-card-main{display:block;flex:1;padding-top:20px;color:inherit;text-decoration:none}.nomi-form-card h2{margin:0;overflow:hidden;font-size:18px;font-weight:750;text-overflow:ellipsis;white-space:nowrap}.nomi-form-card-main>p{display:-webkit-box;min-height:38px;margin:7px 0 18px;overflow:hidden;color:#867a84;font-size:12px;line-height:1.55;-webkit-box-orient:vertical;-webkit-line-clamp:2}.nomi-form-preview{min-height:87px;padding:12px;border:1px solid #eee3e9;border-radius:8px;background:linear-gradient(135deg,#fffafa,#fbf8ff)}.nomi-form-preview span{display:block;color:#ba6c91;font-size:10px;font-weight:800}.nomi-form-preview strong{display:block;margin:6px 0 10px;overflow:hidden;color:#594b57;font-size:12px;text-overflow:ellipsis;white-space:nowrap}.nomi-form-preview i{display:block;width:100%;height:4px;margin-top:5px;border-radius:99px;background:#eee5ed}.nomi-form-preview i:nth-of-type(2){width:76%}.nomi-form-preview i:nth-of-type(3){width:49%}.nomi-form-card footer{display:flex;gap:12px;flex-wrap:wrap;margin-top:17px;color:#90848d;font-size:11px}.nomi-form-card footer b{color:#655a65}.nomi-form-card time{width:100%;color:#aaa0a8}.nomi-form-card-actions{display:flex;align-items:center;justify-content:space-between;margin-top:15px}.nomi-form-card-actions a{color:#9d5075;font-size:12px;font-weight:800;text-decoration:none}.nomi-form-card-actions a:hover{text-decoration:underline}.nomi-form-card-actions button{min-height:32px;padding:0 10px;border:1px solid #eadde5;border-radius:6px;background:#fff;color:#735766;font:700 11px inherit;cursor:pointer}.nomi-form-card-actions button:hover{border-color:#ca92ae;background:#fdf5f8}.nomi-dashboard-empty{margin-top:25px;padding:72px 24px;border:1px dashed #d4bfd0;border-radius:12px;background:rgba(255,255,255,.45);color:#867984;text-align:center}.nomi-dashboard-empty p{margin:0 0 18px}.nomi-dashboard-empty button{border:0;background:transparent;color:#a04f76;font:800 14px inherit;cursor:pointer}.nomi-dashboard-empty button b{margin-left:5px}@keyframes nomi-dashboard-drift{to{transform:translate3d(-36px,34px,0) scale(1.07)}}@media(max-width:1050px){.nomi-form-grid-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.nomi-dashboard-controls{flex-wrap:wrap}.nomi-dashboard-search{min-width:260px}.nomi-dashboard-sort{margin-left:auto}}@media(max-width:720px){.nomi-dashboard-header{height:76px;padding:0 20px}.nomi-dashboard-content{padding:42px 20px 72px}.nomi-dashboard-intro{align-items:flex-start;flex-direction:column}.nomi-dashboard-summary{display:none}.nomi-dashboard-controls{align-items:stretch;flex-direction:column}.nomi-dashboard-search{min-width:0;border-right:0;border-bottom:1px solid #ede4ea}.nomi-dashboard-segment{width:100%;justify-content:space-between}.nomi-dashboard-segment button{flex:1}.nomi-dashboard-sort{justify-content:space-between;margin:0;padding:5px 8px}.nomi-dashboard-view{display:none}.nomi-form-grid-grid{grid-template-columns:1fr}.nomi-form-card{min-height:300px}}@media(prefers-reduced-motion:reduce){.nomi-dashboard-orb,.nomi-form-card,.nomi-dashboard-create{animation:none!important;transition:none!important}}
+/* ==========================================================================
+   NOMI DASHBOARD — EDITORIAL VISUAL ATMOSPHERE & COMPONENT SYSTEM
+   ========================================================================== */
+
+.nomi-dashboard {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: linear-gradient(135deg, #FFF9FA 0%, #FDF4F8 40%, #F6F0FA 100%);
+  color: #2D2332;
+  font-family: var(--font-geist-sans), 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+/* --------------------------------------------------------------------------
+   Atmospheric Background Grid & Glowing Radial Light Orbs
+   -------------------------------------------------------------------------- */
+.nomi-dashboard-grid {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.95;
+  background-image: 
+    linear-gradient(rgba(122, 88, 162, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(122, 88, 162, 0.14) 1px, transparent 1px);
+  background-size: 38px 38px;
+}
+
+.nomi-dashboard-orb {
+  position: fixed;
+  z-index: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(48px);
+  will-change: transform;
+}
+
+.nomi-dashboard-orb-one {
+  width: 620px;
+  height: 620px;
+  top: -240px;
+  right: -100px;
+  background: radial-gradient(circle, rgba(148, 114, 204, 0.28) 0%, rgba(184, 150, 224, 0.14) 45%, transparent 72%);
+  animation: nomi-dash-drift-one 24s ease-in-out infinite alternate;
+}
+
+.nomi-dashboard-orb-two {
+  width: 580px;
+  height: 580px;
+  bottom: -220px;
+  left: -120px;
+  background: radial-gradient(circle, rgba(235, 126, 172, 0.24) 0%, rgba(245, 170, 204, 0.12) 48%, transparent 72%);
+  animation: nomi-dash-drift-two 20s ease-in-out infinite alternate;
+}
+
+.nomi-dashboard-orb-three {
+  width: 440px;
+  height: 440px;
+  top: 35%;
+  left: 28%;
+  background: radial-gradient(circle, rgba(200, 160, 235, 0.16) 0%, transparent 68%);
+  animation: nomi-dash-drift-three 28s ease-in-out infinite alternate;
+}
+
+@keyframes nomi-dash-drift-one {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(-50px, 45px, 0) scale(1.08); }
+}
+
+@keyframes nomi-dash-drift-two {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(45px, -40px, 0) scale(0.94); }
+}
+
+@keyframes nomi-dash-drift-three {
+  0% { transform: translate3d(0, 0, 0) scale(0.95); opacity: 0.7; }
+  100% { transform: translate3d(-30px, 30px, 0) scale(1.05); opacity: 1; }
+}
+
+/* --------------------------------------------------------------------------
+   Dashboard Header Navigation
+   -------------------------------------------------------------------------- */
+.nomi-dashboard-header {
+  position: relative;
+  z-index: 10;
+  max-width: 1280px;
+  margin: 0 auto;
+  height: 92px;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nomi-dashboard-brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  gap: 12px;
+  transition: transform 0.2s ease;
+}
+
+.nomi-dashboard-brand:hover {
+  transform: translateY(-1px);
+}
+
+.nomi-dashboard-create {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 46px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(120deg, #D45B8B 0%, #C65A87 50%, #7C68B4 100%);
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+  box-shadow: 0 8px 24px rgba(198, 90, 135, 0.28), 0 2px 6px rgba(124, 104, 180, 0.2);
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease;
+}
+
+.nomi-dashboard-create:hover {
+  transform: translateY(-2px) scale(1.015);
+  box-shadow: 0 14px 32px rgba(198, 90, 135, 0.36), 0 4px 10px rgba(124, 104, 180, 0.28);
+  filter: brightness(1.04);
+}
+
+.nomi-dashboard-create:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.nomi-dashboard-create:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+/* --------------------------------------------------------------------------
+   Main Workspace Content & Hero
+   -------------------------------------------------------------------------- */
+.nomi-dashboard-content {
+  position: relative;
+  z-index: 5;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px 32px 100px;
+}
+
+.nomi-dashboard-intro {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+  padding-bottom: 8px;
+}
+
+.nomi-dashboard-intro p {
+  margin: 0 0 10px;
+  color: #9E567C;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.nomi-dashboard-intro h1 {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(42px, 4.6vw, 62px);
+  font-weight: 500;
+  line-height: 1.04;
+  color: #261B2B;
+  letter-spacing: -0.02em;
+}
+
+.nomi-dashboard-intro h1 em {
+  font-style: italic;
+  font-weight: 400;
+  background: linear-gradient(110deg, #C65A87, #7C68B4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.nomi-dashboard-intro span.nomi-intro-sub {
+  display: block;
+  margin-top: 14px;
+  color: #6C5F70;
+  font-size: 16px;
+  font-weight: 500;
+  max-width: 500px;
+  line-height: 1.5;
+}
+
+.nomi-dashboard-summary {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 22px;
+  border: 1px solid rgba(200, 175, 212, 0.45);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 8px 24px rgba(98, 70, 110, 0.05);
+  backdrop-filter: blur(12px);
+}
+
+.nomi-dashboard-summary strong {
+  display: block;
+  font-size: 28px;
+  font-weight: 850;
+  line-height: 1;
+  background: linear-gradient(135deg, #C65A87, #7C68B4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.nomi-dashboard-summary span {
+  display: block;
+  color: #7A6D7E;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* --------------------------------------------------------------------------
+   Controls & Filter Toolbar
+   -------------------------------------------------------------------------- */
+.nomi-dashboard-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 40px;
+  padding: 10px 14px;
+  border: 1px solid rgba(215, 192, 222, 0.75);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 10px 30px rgba(90, 60, 95, 0.05);
+  backdrop-filter: blur(16px);
+}
+
+.nomi-dashboard-search {
+  flex: 1;
+  min-width: 220px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px;
+  border-right: 1px solid rgba(225, 205, 228, 0.6);
+  color: #928394;
+}
+
+.nomi-dashboard-search input {
+  width: 100%;
+  height: 38px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #382A3D;
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+.nomi-dashboard-search input::placeholder {
+  color: #9E90A0;
+}
+
+.nomi-dashboard-segment {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 10px;
+  background: rgba(240, 230, 244, 0.7);
+}
+
+.nomi-dashboard-segment button {
+  min-height: 34px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #6E5F72;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.nomi-dashboard-segment button.is-active {
+  background: #FFFFFF;
+  color: #B54B78;
+  box-shadow: 0 2px 8px rgba(98, 62, 95, 0.1);
+}
+
+.nomi-dashboard-sort {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  color: #827285;
+  font-size: 12.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.nomi-dashboard-sort select {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #4A3A50;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.nomi-dashboard-view {
+  display: flex;
+  gap: 3px;
+  padding-left: 10px;
+  border-left: 1px solid rgba(225, 205, 228, 0.6);
+}
+
+.nomi-dashboard-view button {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #827285;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.nomi-dashboard-view button.is-active {
+  background: #FFFFFF;
+  color: #B54B78;
+  box-shadow: 0 2px 8px rgba(98, 62, 95, 0.1);
+}
+
+/* --------------------------------------------------------------------------
+   Form Grid & Dimensional Cards
+   -------------------------------------------------------------------------- */
+.nomi-form-grid {
+  display: grid;
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.nomi-form-grid-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.nomi-form-grid-list {
+  grid-template-columns: 1fr;
+}
+
+.nomi-form-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 330px;
+  padding: 22px;
+  border: 1px solid rgba(215, 192, 222, 0.85);
+  border-radius: 16px;
+  background: rgba(255, 254, 255, 0.86);
+  box-shadow: 0 10px 28px rgba(85, 55, 92, 0.05), 0 1px 3px rgba(85, 55, 92, 0.03);
+  backdrop-filter: blur(12px);
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.24s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.24s ease;
+  will-change: transform, box-shadow;
+}
+
+.nomi-form-card:hover {
+  transform: translateY(-4px) scale(1.005);
+  border-color: #D295B4;
+  box-shadow: 0 20px 42px rgba(135, 75, 120, 0.14), 0 0 26px rgba(168, 125, 205, 0.12);
+}
+
+.nomi-form-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.nomi-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.nomi-status:before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.nomi-status-published {
+  background: #FCE7F1;
+  color: #A34471;
+}
+
+.nomi-status-published:before {
+  background: #C65A87;
+  box-shadow: 0 0 8px rgba(198, 90, 135, 0.6);
+}
+
+.nomi-status-draft {
+  background: #F0EAF5;
+  color: #785E88;
+}
+
+.nomi-status-draft:before {
+  background: #9D84B0;
+}
+
+.nomi-form-menu {
+  position: relative;
+}
+
+.nomi-form-menu > button {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #8D7D90;
+  font-size: 15px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.nomi-form-menu > button:hover {
+  background: rgba(240, 226, 245, 0.7);
+  color: #4A3A50;
+}
+
+.nomi-form-menu [role=menu] {
+  position: absolute;
+  top: 38px;
+  right: 0;
+  z-index: 20;
+  min-width: 170px;
+  padding: 6px;
+  border: 1px solid rgba(220, 198, 226, 0.9);
+  border-radius: 12px;
+  background: #FFFFFF;
+  box-shadow: 0 16px 36px rgba(60, 36, 68, 0.15);
+  animation: fadeIn 0.15s ease-out;
+}
+
+.nomi-form-menu [role=menu] a,
+.nomi-form-menu [role=menu] button {
+  display: block;
+  width: 100%;
+  padding: 9px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #55445A;
+  font-size: 12.5px;
+  font-weight: 650;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.nomi-form-menu [role=menu] a:hover,
+.nomi-form-menu [role=menu] button:hover {
+  background: #F9F2F7;
+  color: #A34471;
+}
+
+.nomi-form-menu .is-danger {
+  color: #C03E65 !important;
+}
+
+.nomi-form-menu .is-danger:hover {
+  background: #FFF0F3 !important;
+}
+
+/* Card Main Area & Real Mini Preview */
+.nomi-form-card-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  text-decoration: none;
+  color: inherit;
+}
+
+.nomi-form-card h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #281D2E;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nomi-form-card-desc {
+  margin: 6px 0 14px;
+  color: #7E7082;
+  font-size: 12.5px;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  min-height: 38px;
+}
+
+/* Form Real Miniature Preview */
+.nomi-form-mini-preview {
+  margin-top: auto;
+  padding: 13px 14px;
+  border: 1px solid rgba(228, 208, 234, 0.7);
+  border-radius: 12px;
+  background: linear-gradient(135deg, #FFFCFC 0%, #FAF5FD 100%);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.nomi-form-card:hover .nomi-form-mini-preview {
+  transform: translateY(-2px);
+  border-color: rgba(200, 160, 215, 0.85);
+}
+
+.nomi-mini-q-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #B54E7D;
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.nomi-mini-q-title {
+  margin: 6px 0 8px;
+  font-size: 12.5px;
+  font-weight: 750;
+  color: #4A3A50;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nomi-mini-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nomi-mini-choice-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(240, 228, 244, 0.6);
+  font-size: 11px;
+  color: #6C5B72;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nomi-mini-choice-pill span {
+  font-size: 9px;
+  font-weight: 850;
+  color: #9C587D;
+}
+
+/* Card Meta & Bottom Actions */
+.nomi-form-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(230, 212, 234, 0.6);
+  color: #8A7B8E;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.nomi-form-card-meta span b {
+  color: #4A3A50;
+  font-weight: 750;
+}
+
+.nomi-form-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding-top: 2px;
+}
+
+.nomi-form-card-actions a.nomi-edit-link {
+  color: #A34471;
+  font-size: 12.5px;
+  font-weight: 800;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: gap 0.18s ease;
+}
+
+.nomi-form-card-actions a.nomi-edit-link:hover {
+  gap: 7px;
+  color: #7C68B4;
+}
+
+.nomi-form-card-actions button.nomi-copy-link-btn {
+  min-height: 30px;
+  padding: 0 10px;
+  border: 1px solid rgba(220, 200, 226, 0.85);
+  border-radius: 8px;
+  background: #FFFFFF;
+  color: #6D5B72;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.nomi-form-card-actions button.nomi-copy-link-btn:hover {
+  border-color: #D295B4;
+  background: #FFF6FA;
+  color: #A34471;
+}
+
+/* Empty State */
+.nomi-dashboard-empty {
+  margin-top: 32px;
+  padding: 80px 24px;
+  border: 2px dashed rgba(205, 175, 214, 0.75);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.55);
+  text-align: center;
+  color: #7E6D82;
+}
+
+.nomi-dashboard-empty p {
+  margin: 0 0 20px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.nomi-dashboard-empty button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(120deg, #D45B8B, #7C68B4);
+  color: #FFFFFF;
+  font-size: 13.5px;
+  font-weight: 750;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(198, 90, 135, 0.25);
+  transition: transform 0.2s ease;
+}
+
+.nomi-dashboard-empty button:hover {
+  transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Layouts (Tablet & Mobile)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1080px) {
+  .nomi-form-grid-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .nomi-dashboard-header {
+    height: 78px;
+    padding: 0 20px;
+  }
+  
+  .nomi-dashboard-content {
+    padding: 20px 20px 80px;
+  }
+  
+  .nomi-dashboard-intro {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .nomi-dashboard-summary {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .nomi-dashboard-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  
+  .nomi-dashboard-search {
+    border-right: 0;
+    border-bottom: 1px solid rgba(225, 205, 228, 0.6);
+    padding-bottom: 6px;
+  }
+  
+  .nomi-dashboard-segment {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .nomi-dashboard-segment button {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .nomi-dashboard-view {
+    display: none;
+  }
+  
+  .nomi-form-grid-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .nomi-dashboard-orb,
+  .nomi-form-card,
+  .nomi-dashboard-create,
+  .nomi-form-mini-preview {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}

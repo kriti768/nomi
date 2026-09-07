@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { FormSchema } from '@/types/form';
 import { api } from '@/lib/api';
+import { NomiLogo } from '@/components/brand/NomiLogo';
 
 interface Props {
   form: FormSchema;
@@ -67,12 +68,10 @@ export const BuilderHeader: React.FC<Props> = ({
       <div className="flex items-center gap-3 min-w-0">
         <Link
           href="/"
-          className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-extrabold text-lg tracking-tight hover:opacity-80 transition-opacity shrink-0"
+          className="flex items-center gap-2 hover:opacity-85 transition-opacity shrink-0"
+          title="Back to Dashboard"
         >
-          <span className="bg-indigo-600 text-white w-7 h-7 rounded-lg flex items-center justify-center font-black text-xs shadow-sm">
-            N
-          </span>
-          <span className="hidden sm:inline">Nomi</span>
+          <NomiLogo size="sm" withWordmark={true} />
         </Link>
 
         <span className="text-slate-300 dark:text-slate-700 font-light">/</span>

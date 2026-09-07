@@ -1,5 +1,236 @@
-/* Scroll choreography: observers change classes, while rAF only writes composite transforms. */
-html{scroll-behavior:smooth}.nomi-scroll-progress{position:fixed;z-index:80;top:0;right:0;left:0;height:2px;transform:scaleX(0);transform-origin:left center;background:linear-gradient(90deg,#d26994,#8d78ba);box-shadow:0 1px 8px rgba(174,104,151,.32);will-change:transform}.nomi-landing{background-image:linear-gradient(rgba(130,98,145,.026) 1px,transparent 1px),linear-gradient(90deg,rgba(130,98,145,.026) 1px,transparent 1px);background-position:var(--nomi-grid-shift,0) var(--nomi-grid-shift,0);background-size:42px 42px;transition:background-position .2s linear}.nomi-nav{position:sticky;top:0;z-index:70;transition:background .28s ease,border-color .28s ease,box-shadow .28s ease,backdrop-filter .28s ease}.nomi-nav:before{content:'';position:absolute;z-index:-1;inset:8px -20px;border:1px solid transparent;border-radius:12px;background:rgba(255,250,248,0);box-shadow:0 7px 24px transparent;backdrop-filter:blur(0);transition:background .28s ease,border-color .28s ease,box-shadow .28s ease,backdrop-filter .28s ease}.nomi-nav.is-scrolled:before{border-color:rgba(223,205,218,.72);background:rgba(255,250,248,.78);box-shadow:0 7px 24px rgba(82,56,80,.07);backdrop-filter:blur(12px)}.nomi-hero{transform:translateY(var(--nomi-hero-y,0)) scale(var(--nomi-hero-scale,1));opacity:var(--nomi-hero-opacity,1);transform-origin:center top;will-change:transform,opacity}.nomi-hero:before{transform:translateY(var(--nomi-orb-y,0));transition:transform .1s linear}.nomi-hero-copy{transform:translateY(var(--nomi-copy-y,0));will-change:transform}.nomi-product-wrap{transform:translateY(var(--nomi-preview-y,0));will-change:transform}.nomi-product-preview{animation:nomi-preview-float 6.2s ease-in-out infinite}.nomi-motion-section{position:relative;z-index:1;will-change:transform,opacity;transition:transform 650ms cubic-bezier(.2,.8,.2,1),opacity 580ms ease,filter 580ms ease}.nomi-motion-section:not(.is-visible){opacity:.25;transform:translateY(64px) scale(.985);filter:blur(1.4px)}.nomi-motion-section.is-visible{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}.nomi-motion-section>.nomi-section-copy,.nomi-motion-section>.nomi-design-heading,.nomi-motion-section>.nomi-final-inner{transition:transform 680ms cubic-bezier(.2,.8,.2,1),opacity 560ms ease}.nomi-motion-section:not(.is-visible)>.nomi-section-copy,.nomi-motion-section:not(.is-visible)>.nomi-design-heading,.nomi-motion-section:not(.is-visible)>.nomi-final-inner{transform:translateX(-22px) translateY(18px);opacity:0}.nomi-motion-section.is-visible>.nomi-section-copy,.nomi-motion-section.is-visible>.nomi-design-heading,.nomi-motion-section.is-visible>.nomi-final-inner{transform:translate(0);opacity:1}.nomi-motion-section>.nomi-builder-card,.nomi-motion-section>.nomi-insights-card,.nomi-motion-section>.nomi-phone-shell{transition:transform 760ms cubic-bezier(.2,.8,.2,1),opacity 580ms ease,box-shadow 240ms ease,border-color 240ms ease}.nomi-motion-section:not(.is-visible)>.nomi-builder-card,.nomi-motion-section:not(.is-visible)>.nomi-insights-card{transform:translateX(34px) translateY(28px);opacity:0}.nomi-motion-section:not(.is-visible)>.nomi-phone-shell{transform:translateX(-30px) translateY(28px);opacity:0}.nomi-motion-section.is-visible>.nomi-builder-card,.nomi-motion-section.is-visible>.nomi-insights-card,.nomi-motion-section.is-visible>.nomi-phone-shell{transform:translate(0);opacity:1}.nomi-value-strip article{position:relative;opacity:0;transform:translateY(30px);transition:transform 560ms cubic-bezier(.2,.8,.2,1),opacity 500ms ease}.nomi-value-strip.is-visible article{opacity:1;transform:none}.nomi-value-strip.is-visible article:nth-child(2){transition-delay:100ms}.nomi-value-strip.is-visible article:nth-child(3){transition-delay:200ms}.nomi-value-strip article:before{content:'';position:absolute;top:14px;bottom:14px;left:-1px;width:1px;background:var(--nomi-border);transform:scaleY(0);transform-origin:top;transition:transform 600ms ease}.nomi-value-strip.is-visible article:before{transform:scaleY(1)}.nomi-value-strip article:first-child:before{display:none}.nomi-theme-grid{transition:transform 680ms cubic-bezier(.2,.8,.2,1),opacity 520ms ease}.nomi-motion-section:not(.is-visible) .nomi-theme-grid{opacity:0;transform:translateY(32px)}.nomi-motion-section.is-visible .nomi-theme-grid{opacity:1;transform:none}.nomi-theme-card{opacity:0;transform:translateY(22px);transition:transform 560ms cubic-bezier(.2,.8,.2,1),opacity 500ms ease,box-shadow .2s,border-color .2s}.nomi-motion-section.is-visible .nomi-theme-card{opacity:1;transform:none}.nomi-motion-section.is-visible .nomi-theme-card.nomi-delay-2{transition-delay:90ms}.nomi-motion-section.is-visible .nomi-theme-card.nomi-delay-3{transition-delay:180ms}.nomi-motion-section.is-visible .nomi-theme-card.nomi-delay-4{transition-delay:270ms}.nomi-button:active{transform:translateY(0) scale(.985)}.nomi-button:hover{transform:translateY(-1px) scale(1.01)}@keyframes nomi-preview-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-button.nomi-button,button.nomi-workspace-link{font-family:inherit;cursor:pointer}button.nomi-workspace-link{padding:0;border:0;background:transparent}
-@media(max-width:560px){.nomi-hero{transform:translateY(calc(var(--nomi-hero-y,0) * .55)) scale(var(--nomi-hero-scale,1))}.nomi-hero-copy{transform:translateY(calc(var(--nomi-copy-y,0) * .55))}.nomi-product-wrap{transform:translateY(calc(var(--nomi-preview-y,0) * .55))}.nomi-motion-section:not(.is-visible){transform:translateY(34px) scale(.992);filter:none}.nomi-motion-section:not(.is-visible)>.nomi-section-copy,.nomi-motion-section:not(.is-visible)>.nomi-design-heading,.nomi-motion-section:not(.is-visible)>.nomi-final-inner{transform:translateY(18px)}.nomi-motion-section:not(.is-visible)>.nomi-builder-card,.nomi-motion-section:not(.is-visible)>.nomi-insights-card,.nomi-motion-section:not(.is-visible)>.nomi-phone-shell{transform:translateY(22px)}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.nomi-scroll-progress{display:none}.nomi-landing{background-position:0 0!important}.nomi-nav,.nomi-nav:before,.nomi-hero,.nomi-hero:before,.nomi-hero-copy,.nomi-product-wrap,.nomi-product-preview,.nomi-motion-section,.nomi-motion-section>.nomi-section-copy,.nomi-motion-section>.nomi-design-heading,.nomi-motion-section>.nomi-final-inner,.nomi-motion-section>.nomi-builder-card,.nomi-motion-section>.nomi-insights-card,.nomi-motion-section>.nomi-phone-shell,.nomi-value-strip article,.nomi-value-strip article:before,.nomi-theme-grid,.nomi-theme-card{animation:none!important;transition:none!important;filter:none!important;opacity:1!important;transform:none!important}}
+/* ==========================================================================
+   NOMI SCROLL & MOTION CHOREOGRAPHY
+   ========================================================================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* --------------------------------------------------------------------------
+   Initial Load Typography Choreography (Staggered Reveals)
+   -------------------------------------------------------------------------- */
+.nomi-reveal-eyebrow {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: nomi-reveal-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+}
+
+.nomi-reveal-title {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: nomi-reveal-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+}
+
+.nomi-reveal-lede {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: nomi-reveal-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.32s forwards;
+}
+
+.nomi-reveal-cta {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: nomi-reveal-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.44s forwards;
+}
+
+.nomi-reveal-preview {
+  opacity: 0;
+  transform: translateY(24px) scale(0.98);
+  animation: nomi-preview-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+}
+
+@keyframes nomi-reveal-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes nomi-preview-in {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Scroll-Linked Section Transitions & Overlaps
+   -------------------------------------------------------------------------- */
+.nomi-motion-section {
+  position: relative;
+  z-index: 1;
+  transition: opacity 0.6s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+  will-change: transform, opacity;
+}
+
+.nomi-motion-section:not(.is-visible) {
+  opacity: 0.3;
+  transform: translateY(48px) scale(0.985);
+  filter: blur(1.5px);
+}
+
+.nomi-motion-section.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* Internal elements enter with slight stagger */
+.nomi-motion-section:not(.is-visible) > .nomi-section-copy,
+.nomi-motion-section:not(.is-visible) > .nomi-design-heading,
+.nomi-motion-section:not(.is-visible) > .nomi-final-inner {
+  transform: translateX(-20px) translateY(15px);
+  opacity: 0;
+}
+
+.nomi-motion-section.is-visible > .nomi-section-copy,
+.nomi-motion-section.is-visible > .nomi-design-heading,
+.nomi-motion-section.is-visible > .nomi-final-inner {
+  transform: translate(0);
+  opacity: 1;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
+}
+
+.nomi-motion-section:not(.is-visible) > .nomi-builder-card,
+.nomi-motion-section:not(.is-visible) > .nomi-insights-card,
+.nomi-motion-section:not(.is-visible) > .nomi-phone-shell {
+  transform: translateX(24px) translateY(24px);
+  opacity: 0;
+}
+
+.nomi-motion-section.is-visible > .nomi-builder-card,
+.nomi-motion-section.is-visible > .nomi-insights-card,
+.nomi-motion-section.is-visible > .nomi-phone-shell {
+  transform: translate(0);
+  opacity: 1;
+  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
+}
+
+/* Value strip sequential reveals */
+.nomi-value-strip article {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+}
+
+.nomi-value-strip.is-visible article {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nomi-value-strip.is-visible article:nth-child(2) {
+  transition-delay: 0.12s;
+}
+
+.nomi-value-strip.is-visible article:nth-child(3) {
+  transition-delay: 0.24s;
+}
+
+/* --------------------------------------------------------------------------
+   Sticky Storytelling Section ("One question at a time")
+   -------------------------------------------------------------------------- */
+.nomi-sticky-story-section {
+  position: relative;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 100px clamp(20px, 6vw, 64px);
+}
+
+.nomi-sticky-container {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(360px, 0.9fr);
+  gap: clamp(40px, 6vw, 90px);
+  align-items: start;
+}
+
+.nomi-sticky-copy-column {
+  display: flex;
+  flex-direction: column;
+  gap: 120px;
+  padding: 60px 0 160px;
+}
+
+.nomi-story-milestone {
+  padding: 36px 32px;
+  border-radius: 20px;
+  border: 1px solid rgba(220, 198, 226, 0.65);
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 12px 34px rgba(80, 50, 90, 0.05);
+  backdrop-filter: blur(14px);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nomi-story-milestone.is-active {
+  border-color: #D295B4;
+  box-shadow: 0 20px 48px rgba(198, 90, 135, 0.14);
+  transform: translateX(8px);
+}
+
+.nomi-story-milestone span.milestone-num {
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+  color: #B54E7D;
+  text-transform: uppercase;
+}
+
+.nomi-story-milestone h3 {
+  margin: 12px 0 14px;
+  font-family: var(--nomi-serif);
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 1.12;
+  color: #241728;
+}
+
+.nomi-story-milestone p {
+  margin: 0;
+  color: var(--nomi-text-muted);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.nomi-sticky-visual-column {
+  position: sticky;
+  top: 130px;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 900px) {
+  .nomi-sticky-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .nomi-sticky-visual-column {
+    position: relative;
+    top: 0;
+    margin-bottom: 40px;
+  }
+  
+  .nomi-sticky-copy-column {
+    padding: 0;
+    gap: 40px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Reduced Motion Accessibility
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .nomi-reveal-eyebrow,
+  .nomi-reveal-title,
+  .nomi-reveal-lede,
+  .nomi-reveal-cta,
+  .nomi-reveal-preview,
+  .nomi-motion-section,
+  .nomi-motion-section > *,
+  .nomi-value-strip article,
+  .nomi-story-milestone {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+}

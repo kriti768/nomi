@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { api } from '@/lib/api';
 import { FormSchema } from '@/types/form';
 import { useToast } from '@/context/ToastContext';
+import { NomiLogo } from '@/components/brand/NomiLogo';
 
 type Filter = 'all' | 'published' | 'draft';
 type Sort = 'updated' | 'created' | 'name';
@@ -164,12 +165,12 @@ export default function DashboardPage() {
       <div className="nomi-dashboard-grid" aria-hidden="true" />
       <div className="nomi-dashboard-orb nomi-dashboard-orb-one" aria-hidden="true" />
       <div className="nomi-dashboard-orb nomi-dashboard-orb-two" aria-hidden="true" />
+      <div className="nomi-dashboard-orb nomi-dashboard-orb-three" aria-hidden="true" />
 
       {/* Header */}
       <header className="nomi-dashboard-header">
-        <Link href="/" className="nomi-dashboard-brand">
-          <span aria-hidden="true"><i /><i /><i /></span>
-          Nomi
+        <Link href="/" className="nomi-dashboard-brand" aria-label="Nomi home">
+          <NomiLogo size="md" withWordmark={true} />
         </Link>
         <button
           type="button"
@@ -177,7 +178,8 @@ export default function DashboardPage() {
           disabled={creating}
           className="nomi-dashboard-create"
         >
-          {creating ? 'Creating...' : 'Create form'} <b>+</b>
+          <span>{creating ? 'Creating...' : 'Create form'}</span>
+          <b aria-hidden="true">+</b>
         </button>
       </header>
 
@@ -185,13 +187,13 @@ export default function DashboardPage() {
       <section className="nomi-dashboard-content">
         <div className="nomi-dashboard-intro">
           <div>
-            <p>YOUR WORKSPACE</p>
-            <h1>My Forms</h1>
-            <span>Build thoughtful conversations, then follow every answer.</span>
+            <p>WORKSPACE</p>
+            <h1>My <em>Forms</em></h1>
+            <span className="nomi-intro-sub">Questions worth answering. Craft, share, and understand conversations.</span>
           </div>
           <div className="nomi-dashboard-summary">
             <strong>{forms.length}</strong>
-            <span>forms in your workspace</span>
+            <span>Active forms in<br />your workspace</span>
           </div>
         </div>
 
@@ -202,7 +204,7 @@ export default function DashboardPage() {
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search forms..."
+              placeholder="Search forms by title or topic..."
               aria-label="Search forms"
             />
           </label>
@@ -221,7 +223,7 @@ export default function DashboardPage() {
           </div>
 
           <label className="nomi-dashboard-sort">
-            Sort
+            Sort:
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value as Sort)}
@@ -266,13 +268,13 @@ export default function DashboardPage() {
                 : 'Your next conversation starts here.'}
             </p>
             <button type="button" onClick={createForm}>
-              Create a form <b>→</b>
+              Create a form <span aria-hidden="true">→</span>
             </button>
           </div>
         ) : (
           <div className={`nomi-form-grid nomi-form-grid-${view}`} ref={menuRef}>
             {visibleForms.map((form) => {
-              const question = form.questions[0];
+              const firstQuestion = form.questions[0];
               const responseCount = counts[form.id] ?? 0;
 
               return (
@@ -320,36 +322,65 @@ export default function DashboardPage() {
 
                   <Link href={`/builder/${form.id}`} className="nomi-form-card-main">
                     <h2>{form.title}</h2>
-                    <p>{form.description || 'A conversational form waiting for its first question.'}</p>
-                    <div className="nomi-form-preview">
-                      {question ? (
+                    <p className="nomi-form-card-desc">
+                      {form.description || 'A conversational form ready to collect structured responses.'}
+                    </p>
+
+                    {/* Miniature Real Form Preview */}
+                    <div className="nomi-form-mini-preview">
+                      {firstQuestion ? (
                         <>
-                          <span>{String(question.position + 1).padStart(2, '0')}</span>
-                          <strong>{question.title}</strong>
-                          <i /><i /><i />
+                          <div className="nomi-mini-q-badge">
+                            <span>01</span>
+                            <span>•</span>
+                            <span>{firstQuestion.type.replace('_', ' ')}</span>
+                          </div>
+                          <div className="nomi-mini-q-title">
+                            {firstQuestion.title || 'Untitled question'}
+                          </div>
+                          {firstQuestion.choices && firstQuestion.choices.length > 0 ? (
+                            <div className="nomi-mini-choices">
+                              {firstQuestion.choices.slice(0, 2).map((choice, i) => (
+                                <div key={choice.id || i} className="nomi-mini-choice-pill">
+                                  <span>{String.fromCharCode(65 + i)}</span>
+                                  <span>{choice.label}</span>
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <div className="nomi-mini-choices">
+                              <div className="nomi-mini-choice-pill">
+                                <span>↵</span>
+                                <span>{firstQuestion.settings?.placeholder || 'Type your answer...'}</span>
+                              </div>
+                            </div>
+                          )}
                         </>
                       ) : (
                         <>
-                          <span>01</span>
-                          <strong>Add your first question</strong>
-                          <i /><i />
+                          <div className="nomi-mini-q-badge"><span>01</span> • <span>Draft</span></div>
+                          <div className="nomi-mini-q-title">Add your first question</div>
+                          <div className="nomi-mini-choices">
+                            <div className="nomi-mini-choice-pill"><span>+</span> Click to start building</div>
+                          </div>
                         </>
                       )}
                     </div>
                   </Link>
 
-                  <footer>
+                  <div className="nomi-form-card-meta">
                     <span><b>{form.questions.length}</b> questions</span>
                     <span><b>{responseCount}</b> responses</span>
-                    <time dateTime={form.updated_at}>Updated {formatDate(form.updated_at)}</time>
-                  </footer>
+                    <span>{formatDate(form.updated_at)}</span>
+                  </div>
 
                   <div className="nomi-form-card-actions">
-                    <Link href={`/builder/${form.id}`}>
-                      Open builder <b>→</b>
+                    <Link href={`/builder/${form.id}`} className="nomi-edit-link">
+                      Open builder <span>→</span>
                     </Link>
                     <button
                       type="button"
+                      className="nomi-copy-link-btn"
                       disabled={actionId === form.id}
                       onClick={() => handleAction(form, 'publish')}
                     >
